@@ -148,7 +148,6 @@ short readMonth() {
         ) || !isPositiveNumber(
             month
         ) ||
-        month < 1 ||
         month > 12
     );
     return month;
