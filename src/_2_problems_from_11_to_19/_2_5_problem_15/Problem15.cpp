@@ -3,7 +3,7 @@
 #include <limits>
 using namespace std;
 
-struct date {
+struct Date {
     short year;
     short month;
     short day;
@@ -81,7 +81,7 @@ short monthDays(
     }
 }
 
-date readDate() {
+Date readDate() {
     const short YEAR = readNumber(
         "Year"
     );
@@ -99,7 +99,7 @@ date readDate() {
 }
 
 int main() {
-    const date DATE{
+    const Date DATE = {
         readDate()
     };
     cout << "Is Last Month in Year?" << endl;

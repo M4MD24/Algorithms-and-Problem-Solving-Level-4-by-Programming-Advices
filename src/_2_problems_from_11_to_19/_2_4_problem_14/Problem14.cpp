@@ -3,7 +3,7 @@
 #include <limits>
 using namespace std;
 
-struct date {
+struct Date {
     short year;
     short month;
     short day;
@@ -114,7 +114,7 @@ short readDay(
     return day;
 }
 
-date readDate() {
+Date readDate() {
     const short YEAR = readYear();
     const short MONTH = readMonth();
     const short DAY = readDay(
@@ -129,8 +129,8 @@ date readDate() {
 }
 
 short areDatesEqual(
-    const date& FIRST_DATE,
-    const date& SECOND_DATE
+    const Date& FIRST_DATE,
+    const Date& SECOND_DATE
 ) {
     return FIRST_DATE.year == SECOND_DATE.year &&
         FIRST_DATE.month == SECOND_DATE.month &&
@@ -138,7 +138,7 @@ short areDatesEqual(
 }
 
 int main() {
-    const date FIRST_DATE{
+    const Date FIRST_DATE{
                    readDate()
                },
                SECOND_DATE{

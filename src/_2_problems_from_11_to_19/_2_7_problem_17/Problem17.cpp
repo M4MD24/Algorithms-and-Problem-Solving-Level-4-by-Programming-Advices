@@ -128,6 +128,23 @@ Date readDate() {
     };
 }
 
+void nextDay(
+    Date& date
+) {
+    if (
+        ++date.day > monthDays(
+            date.year,
+            date.month
+        )
+    ) {
+        date.day = 1;
+        if (++date.month > 12) {
+            date.month = 1;
+            ++date.year;
+        }
+    }
+}
+
 short compareDates(
     const Date& FIRST_DATE,
     const Date& SECOND_DATE
@@ -147,38 +164,55 @@ short compareDates(
     return -1;
 }
 
-string dateComparisonText(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
+short daysDifferenceInDates(
+    Date firstDate,
+    Date secondDate,
+    const bool& INCLUDE_END_DAY = false
 ) {
-    string result = "First Date is ";
-    switch (
+    short daysDifference = 0;
+    if (
         compareDates(
-            FIRST_DATE,
-            SECOND_DATE
-        )
+            firstDate,
+            secondDate
+        ) == 1
     ) {
-    case 0:
-        result += "Equal to";
-        break;
-    case 1:
-        result += "Bigger Than";
-        break;
-    default:
-        result += "Less Than";
+        const Date& TEMPORARY_DATE = firstDate;
+        firstDate = secondDate;
+        secondDate = TEMPORARY_DATE;
     }
-    return result + " Second Date";
+
+    while (
+        !compareDates(
+            firstDate,
+            secondDate
+        ) == 0
+    ) {
+        daysDifference += 1;
+        nextDay(
+            firstDate
+        );
+    }
+
+    return INCLUDE_END_DAY
+               ? ++daysDifference
+               : daysDifference;
 }
 
 int main() {
     const Date FIRST_DATE{
                    readDate()
-               },
-               SECOND_DATE{
+               }, SECOND_DATE{
                    readDate()
                };
-    cout << dateComparisonText(
+
+    cout << "Days difference in dates: " << daysDifferenceInDates(
         FIRST_DATE,
         SECOND_DATE
-    );
+    ) << " day(s)" << endl;
+
+    cout << "Days difference in dates (Including End Day): " << daysDifferenceInDates(
+        FIRST_DATE,
+        SECOND_DATE,
+        true
+    ) << " day(s)";
 }
