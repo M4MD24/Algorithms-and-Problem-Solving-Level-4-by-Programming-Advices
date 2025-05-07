@@ -176,7 +176,7 @@ void printDate(
     const short& MONTH,
     const short& DAY,
     const char& SEPARATOR
-) { cout << DAY << SEPARATOR << MONTH << SEPARATOR << YEAR << endl; }
+) { cout << "Date: " << DAY << SEPARATOR << MONTH << SEPARATOR << YEAR << endl; }
 
 int main() {
     const short YEAR = readYear(),
