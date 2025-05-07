@@ -159,6 +159,21 @@ void printDateByDays(
     cout << "Date: " << days << SEPARATOR << month << SEPARATOR << startYear << endl;
 }
 
+short readDays(
+    const string& INPUT_MESSAGE
+) {
+    short day;
+    do cout << INPUT_MESSAGE << endl;
+    while (
+        !isNumber(
+            day
+        ) || !isPositiveNumber(
+            day
+        )
+    );
+    return day;
+}
+
 int main() {
     const short YEAR = readYear(),
                 MONTH = readMonth(),
@@ -173,12 +188,15 @@ int main() {
         DAY
     );
 
-    cout << "Total Days from Start Year to Target Date: " << TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE << endl;
+    cout << "Total Days from Start Year to Target Date: " << TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE << "\n\n";
+
+    const short DAYS_TO_ADD = readDays(
+        "How Many Days to Add?"
+    );
 
     printDateByDays(
-        TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE,
+        static_cast<short>(TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE + DAYS_TO_ADD),
         YEAR,
         SEPARATOR
     );
 }
-// 16-8-2029
