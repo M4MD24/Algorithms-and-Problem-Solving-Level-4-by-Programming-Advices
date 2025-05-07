@@ -108,55 +108,26 @@ short readDay(
     return day;
 }
 
-short totalDaysFromStartYearToTargetDate(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY
-) {
-    short totalDays = 0;
-    for (short month = 1; month < MONTH; ++month)
-        totalDays = static_cast<short>(
-            totalDays +
-            monthDays(
-                YEAR,
-                month
-            )
-        );
-    return static_cast<short>(totalDays + DAY);
-}
-
-void printDateByDays(
-    short days,
-    short startYear,
+void printNextDay(
+    short year,
+    short month,
+    short day,
     const char& SEPARATOR
 ) {
-    while (days >= 365) {
-        days -= isLeapYear(
-                    startYear
-                )
-                    ? 366
-                    : 365;
-        startYear++;
-    }
-
-    short month = 1;
-
-    while (
-        days >= monthDays(
-            startYear,
+    if (
+        ++day > monthDays(
+            year,
             month
         )
     ) {
-        days = static_cast<short>(
-            days - monthDays(
-                startYear,
-                month
-            )
-        );
-        month++;
+        day = 1;
+        if (++month > 12) {
+            month = 1;
+            ++year;
+        }
     }
 
-    cout << "Date: " << days << SEPARATOR << month << SEPARATOR << startYear;
+    cout << "Date after next day: " << day << SEPARATOR << month << SEPARATOR << year;
 }
 
 int main() {
@@ -167,17 +138,11 @@ int main() {
                     MONTH
                 );
     constexpr char SEPARATOR = '-';
-    const short TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE = totalDaysFromStartYearToTargetDate(
+
+    printNextDay(
         YEAR,
         MONTH,
-        DAY
-    );
-
-    cout << "Total Days from Start Year to Target Date: " << TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE << endl;
-
-    printDateByDays(
-        TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE,
-        YEAR,
+        DAY,
         SEPARATOR
     );
 }

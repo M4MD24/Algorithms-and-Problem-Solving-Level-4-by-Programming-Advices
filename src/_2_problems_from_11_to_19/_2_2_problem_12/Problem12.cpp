@@ -156,7 +156,7 @@ void printDateByDays(
         month++;
     }
 
-    cout << "Date: " << days << SEPARATOR << month << SEPARATOR << startYear << endl;
+    cout << "Date: " << days << SEPARATOR << month << SEPARATOR << startYear;
 }
 
 short readDays(
