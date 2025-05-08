@@ -210,12 +210,12 @@ int main() {
     };
     constexpr char SEPARATOR = '-';
 
-    short yearsCount = readYears(
+    short yearCount = readYears(
         "How Many Years to Add?"
     );
 
     nextYears(
-        yearsCount,
+        yearCount,
         date
     );
 

@@ -32,3 +32,4 @@
         7. [Problem 26](src/_3_problems_from_20_to_55/_3_1_problems_from_20_to_32/_3_1_7_problem_26)
         8. [Problem 27](src/_3_problems_from_20_to_55/_3_1_problems_from_20_to_32/_3_1_8_problem_27)
         9. [Problem 28](src/_3_problems_from_20_to_55/_3_1_problems_from_20_to_32/_3_1_9_problem_28)
+        10. [Problem 29](src/_3_problems_from_20_to_55/_3_1_problems_from_20_to_32/_3_1_10_problem_29)

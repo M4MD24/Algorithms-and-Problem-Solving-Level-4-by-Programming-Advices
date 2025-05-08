@@ -128,19 +128,19 @@ Date readDate() {
     };
 }
 
-short readYears(
+short readDecades(
     const string& INPUT_MESSAGE
 ) {
-    short year;
+    short decades;
     do cout << INPUT_MESSAGE << endl;
     while (
         !isNumber(
-            year
+            decades
         ) || !isPositiveNumber(
-            year
+            decades
         )
     );
-    return year;
+    return decades;
 }
 
 void nextDay(
@@ -189,20 +189,29 @@ void nextYear(
         );
 }
 
-void printDate(
-    const Date& DATE,
-    const char& SEPARATOR
-) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
-
-void nextYears(
-    short& yearCount,
+void nextDecade(
     Date& date
 ) {
-    while (yearCount--)
+    for (int year = 0; year < 10; ++year)
         nextYear(
             date
         );
 }
+
+void nextDecades(
+    short& decadeCount,
+    Date& date
+) {
+    while (decadeCount--)
+        nextDecade(
+            date
+        );
+}
+
+void printDate(
+    const Date& DATE,
+    const char& SEPARATOR
+) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 int main() {
     Date date{
@@ -210,12 +219,12 @@ int main() {
     };
     constexpr char SEPARATOR = '-';
 
-    short yearCount = readYears(
-        "How Many Years to Add?"
+    short decadeCount = readDecades(
+        "How Many Decades to Add?"
     );
 
-    nextYears(
-        yearCount,
+    nextDecades(
+        decadeCount,
         date
     );
 
