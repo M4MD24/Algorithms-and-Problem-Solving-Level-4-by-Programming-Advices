@@ -128,27 +128,12 @@ Date readDate() {
     };
 }
 
-short readMonths(
-    const string& INPUT_MESSAGE
-) {
-    short months;
-    do cout << INPUT_MESSAGE << endl;
-    while (
-        !isNumber(
-            months
-        ) || !isPositiveNumber(
-            months
-        )
-    );
-    return months;
-}
-
-void nextMonth(
+void previousMonth(
     Date& date
 ) {
-    if (++date.month > 12) {
-        date.month = 1;
-        date.year++;
+    if (--date.month == 0) {
+        date.month = 12;
+        date.year--;
     }
 
     if (
@@ -166,28 +151,13 @@ void printDate(
     const char& SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
-void nextMonths(
-    short& months,
-    Date& date
-) {
-    while (months--)
-        nextMonth(
-            date
-        );
-}
-
 int main() {
     Date date{
         readDate()
     };
     constexpr char SEPARATOR = '-';
 
-    short months = readMonths(
-        "How Many Months to Add?"
-    );
-
-    nextMonths(
-        months,
+    previousMonth(
         date
     );
 
