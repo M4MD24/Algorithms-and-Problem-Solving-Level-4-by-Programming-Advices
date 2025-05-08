@@ -131,16 +131,16 @@ Date readDate() {
 short readWeeks(
     const string& INPUT_MESSAGE
 ) {
-    short week;
+    short weeks;
     do cout << INPUT_MESSAGE << endl;
     while (
         !isNumber(
-            week
+            weeks
         ) || !isPositiveNumber(
-            week
+            weeks
         )
     );
-    return week;
+    return weeks;
 }
 
 void nextDay(

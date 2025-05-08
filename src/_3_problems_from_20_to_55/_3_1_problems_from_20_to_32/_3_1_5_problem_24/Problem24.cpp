@@ -131,16 +131,16 @@ Date readDate() {
 short readMonths(
     const string& INPUT_MESSAGE
 ) {
-    short month;
+    short months;
     do cout << INPUT_MESSAGE << endl;
     while (
         !isNumber(
-            month
+            months
         ) || !isPositiveNumber(
-            month
+            months
         )
     );
-    return month;
+    return months;
 }
 
 void nextMonth(
