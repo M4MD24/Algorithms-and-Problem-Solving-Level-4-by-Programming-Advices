@@ -128,21 +128,6 @@ Date readDate() {
     };
 }
 
-short readDays(
-    const string& INPUT_MESSAGE
-) {
-    short days;
-    do cout << INPUT_MESSAGE << endl;
-    while (
-        !isNumber(
-            days
-        ) || !isPositiveNumber(
-            days
-        )
-    );
-    return days;
-}
-
 void previousDay(
     Date& date
 ) {
@@ -159,11 +144,30 @@ void previousDay(
 }
 
 void previousDays(
-    short& dayCount,
+    short dayCount,
     Date& date
 ) {
     while (dayCount--)
         previousDay(
+            date
+        );
+}
+
+void previousYear(
+    Date& date
+) {
+    if (
+        isLeapYear(
+            date.year
+        )
+    )
+        previousDays(
+            366,
+            date
+        );
+    else
+        previousDays(
+            365,
             date
         );
 }
@@ -179,12 +183,7 @@ int main() {
     };
     constexpr char SEPARATOR = '-';
 
-    short dayCount = readDays(
-        "How Many Days to Subtract?"
-    );
-
-    previousDays(
-        dayCount,
+    previousYear(
         date
     );
 
