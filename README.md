@@ -36,3 +36,5 @@
         11. [Problem 30](src/_3_problems_from_20_to_55/_3_1_problems_from_20_to_32/_3_1_11_problem_30)
         12. [Problem 31](src/_3_problems_from_20_to_55/_3_1_problems_from_20_to_32/_3_1_12_problem_31)
         13. [Problem 32](src/_3_problems_from_20_to_55/_3_1_problems_from_20_to_32/_3_1_13_problem_32)
+    2. [Problems from 33 to 46](src/_3_problems_from_20_to_55/_3_2_problems_from_33_to_46)
+        1. [Problem 33](src/_3_problems_from_20_to_55/_3_2_problems_from_33_to_46/_3_2_1_problem_33)
