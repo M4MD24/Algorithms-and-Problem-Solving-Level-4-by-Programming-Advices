@@ -145,11 +145,34 @@ void nextDay(
     }
 }
 
-void nextWeek(
+void nextDays(
+    short dayCount,
     Date& date
 ) {
-    for (short day = 0; day < 7; ++day)
-        nextDay(date);
+    while (dayCount--)
+        nextDay(
+            date
+        );
+}
+
+void nextYear(
+    Date& date
+) {
+    if (
+        isLeapYear(
+            date.year
+        )
+    )
+        nextDays(
+            366,
+            date
+        );
+    else
+        nextDays(
+            365,
+            date
+        );
+
 }
 
 void printDate(
@@ -163,7 +186,7 @@ int main() {
     };
     constexpr char SEPARATOR = '-';
 
-    nextWeek(
+    nextYear(
         date
     );
 

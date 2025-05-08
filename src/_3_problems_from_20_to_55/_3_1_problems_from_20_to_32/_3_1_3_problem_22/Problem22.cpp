@@ -163,7 +163,7 @@ void nextDay(
 void nextWeek(
     Date& date
 ) {
-    for (short index = 0; index < 7; ++index)
+    for (short day = 0; day < 7; ++day)
         nextDay(
             date
         );
