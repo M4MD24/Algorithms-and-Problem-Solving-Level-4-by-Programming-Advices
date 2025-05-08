@@ -128,36 +128,65 @@ Date readDate() {
     };
 }
 
-short readMonths(
+short readYears(
     const string& INPUT_MESSAGE
 ) {
-    short month;
+    short year;
     do cout << INPUT_MESSAGE << endl;
     while (
         !isNumber(
-            month
+            year
         ) || !isPositiveNumber(
-            month
+            year
         )
     );
-    return month;
+    return year;
 }
 
-void nextMonth(
+void nextDay(
     Date& date
 ) {
-    if (++date.month > 12) {
-        date.month = 1;
-        date.year++;
+    if (
+        ++date.day > monthDays(
+            date.year,
+            date.month
+        )
+    ) {
+        date.day = 1;
+        if (++date.month > 12) {
+            date.month = 1;
+            ++date.year;
+        }
     }
+}
 
-    const short MONTH_DAYS = monthDays(
-        date.year,
-        date.month
-    );
+void nextDays(
+    short dayCount,
+    Date& date
+) {
+    while (dayCount--)
+        nextDay(
+            date
+        );
+}
 
-    if (date.day > MONTH_DAYS)
-        date.day = MONTH_DAYS;
+void nextYear(
+    Date& date
+) {
+    if (
+        isLeapYear(
+            date.year
+        )
+    )
+        nextDays(
+            366,
+            date
+        );
+    else
+        nextDays(
+            365,
+            date
+        );
 }
 
 void printDate(
@@ -165,12 +194,12 @@ void printDate(
     const char& SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
-void nextMonths(
-    short& months,
+void nextYears(
+    short& yearCount,
     Date& date
 ) {
-    while (months--)
-        nextMonth(
+    while (yearCount--)
+        nextYear(
             date
         );
 }
@@ -181,12 +210,12 @@ int main() {
     };
     constexpr char SEPARATOR = '-';
 
-    short months = readMonths(
-        "How Many Months to Add?"
+    short yearsCount = readYears(
+        "How Many Years to Add?"
     );
 
-    nextMonths(
-        months,
+    nextYears(
+        yearsCount,
         date
     );
 

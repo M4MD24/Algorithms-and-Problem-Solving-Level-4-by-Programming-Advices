@@ -172,7 +172,6 @@ void nextYear(
             365,
             date
         );
-
 }
 
 void printDate(
