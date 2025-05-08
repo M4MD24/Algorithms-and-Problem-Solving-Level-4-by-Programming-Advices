@@ -3,6 +3,12 @@
 #include <limits>
 using namespace std;
 
+struct Date {
+    short year;
+    short month;
+    short day;
+};
+
 bool isLeapYear(
     const short& YEAR
 ) {
@@ -62,55 +68,6 @@ short readMonth() {
     return month;
 }
 
-short dayOfWeek(
-    short year,
-    short month,
-    const short& DAY
-) {
-    if (month < 3) {
-        month += 12;
-        year -= 1;
-    }
-
-    const short YEAR_PART = static_cast<short>(year % 100);
-    const short CENTURY = static_cast<short>(year / 100);
-    const short ZELLER_RESULT = static_cast<short>(
-        (
-            DAY + 13 *
-            (month + 1) / 5 +
-            YEAR_PART + YEAR_PART / 4 +
-            CENTURY / 4 + 5 *
-            CENTURY
-        ) %
-        7
-    );
-
-    return ZELLER_RESULT;
-}
-
-string dayOfWeekName(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY
-) {
-    static const string DAYS[] = {
-        "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-    };
-    return DAYS[
-        dayOfWeek(
-            YEAR,
-            MONTH,
-            DAY
-        )
-    ];
-}
-
 short monthDays(
     const short& YEAR,
     const short& MONTH
@@ -136,18 +93,6 @@ short monthDays(
     }
 }
 
-void showDayName(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY
-) {
-    cout << "Day Name: " << dayOfWeekName(
-        YEAR,
-        MONTH,
-        DAY
-    );
-}
-
 short readDay(
     const short& YEAR,
     const short& MONTH
@@ -169,32 +114,71 @@ short readDay(
     return day;
 }
 
-void printDate(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY,
-    const char& SEPARATOR
-) { cout << "Date: " << DAY << SEPARATOR << MONTH << SEPARATOR << YEAR << endl; }
-
-int main() {
-    const short YEAR = readYear(),
-                MONTH = readMonth(),
-                DAY = readDay(
-                    YEAR,
-                    MONTH
-                );
-    constexpr char SEPARATOR = '-';
-
-    printDate(
+Date readDate() {
+    const short YEAR = readYear();
+    const short MONTH = readMonth();
+    const short DAY = readDay(
         YEAR,
-        MONTH,
-        DAY,
-        SEPARATOR
+        MONTH
     );
-
-    showDayName(
+    return {
         YEAR,
         MONTH,
         DAY
+    };
+}
+
+short compareDates(
+    const Date& FIRST_DATE,
+    const Date& SECOND_DATE
+) {
+    if (
+        FIRST_DATE.year == SECOND_DATE.year &&
+        FIRST_DATE.month == SECOND_DATE.month &&
+        FIRST_DATE.day == SECOND_DATE.day
+    )
+        return 0;
+    if (
+        FIRST_DATE.year >= SECOND_DATE.year &&
+        FIRST_DATE.month >= SECOND_DATE.month &&
+        FIRST_DATE.day >= SECOND_DATE.day
+    )
+        return 1;
+    return -1;
+}
+
+string dateComparisonText(
+    const Date& FIRST_DATE,
+    const Date& SECOND_DATE
+) {
+    string result = "First Date is ";
+    switch (
+        compareDates(
+            FIRST_DATE,
+            SECOND_DATE
+        )
+    ) {
+    case 0:
+        result += "Equal to";
+        break;
+    case 1:
+        result += "Bigger Than";
+        break;
+    default:
+        result += "Less Than";
+    }
+    return result + " Second Date";
+}
+
+int main() {
+    const Date FIRST_DATE{
+                   readDate()
+               },
+               SECOND_DATE{
+                   readDate()
+               };
+    cout << dateComparisonText(
+        FIRST_DATE,
+        SECOND_DATE
     );
 }

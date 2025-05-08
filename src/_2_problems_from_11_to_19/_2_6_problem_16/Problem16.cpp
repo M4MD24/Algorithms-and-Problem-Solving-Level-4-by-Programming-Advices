@@ -62,55 +62,6 @@ short readMonth() {
     return month;
 }
 
-short dayOfWeek(
-    short year,
-    short month,
-    const short& DAY
-) {
-    if (month < 3) {
-        month += 12;
-        year -= 1;
-    }
-
-    const short YEAR_PART = static_cast<short>(year % 100);
-    const short CENTURY = static_cast<short>(year / 100);
-    const short ZELLER_RESULT = static_cast<short>(
-        (
-            DAY + 13 *
-            (month + 1) / 5 +
-            YEAR_PART + YEAR_PART / 4 +
-            CENTURY / 4 + 5 *
-            CENTURY
-        ) %
-        7
-    );
-
-    return ZELLER_RESULT;
-}
-
-string dayOfWeekName(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY
-) {
-    static const string DAYS[] = {
-        "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-    };
-    return DAYS[
-        dayOfWeek(
-            YEAR,
-            MONTH,
-            DAY
-        )
-    ];
-}
-
 short monthDays(
     const short& YEAR,
     const short& MONTH
@@ -136,18 +87,6 @@ short monthDays(
     }
 }
 
-void showDayName(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY
-) {
-    cout << "Day Name: " << dayOfWeekName(
-        YEAR,
-        MONTH,
-        DAY
-    );
-}
-
 short readDay(
     const short& YEAR,
     const short& MONTH
@@ -169,12 +108,27 @@ short readDay(
     return day;
 }
 
-void printDate(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY,
+void printNextDay(
+    short year,
+    short month,
+    short day,
     const char& SEPARATOR
-) { cout << "Date: " << DAY << SEPARATOR << MONTH << SEPARATOR << YEAR << endl; }
+) {
+    if (
+        ++day > monthDays(
+            year,
+            month
+        )
+    ) {
+        day = 1;
+        if (++month > 12) {
+            month = 1;
+            ++year;
+        }
+    }
+
+    cout << "Date after next day: " << day << SEPARATOR << month << SEPARATOR << year;
+}
 
 int main() {
     const short YEAR = readYear(),
@@ -185,16 +139,10 @@ int main() {
                 );
     constexpr char SEPARATOR = '-';
 
-    printDate(
+    printNextDay(
         YEAR,
         MONTH,
         DAY,
         SEPARATOR
-    );
-
-    showDayName(
-        YEAR,
-        MONTH,
-        DAY
     );
 }

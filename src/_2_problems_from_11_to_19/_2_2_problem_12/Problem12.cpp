@@ -62,55 +62,6 @@ short readMonth() {
     return month;
 }
 
-short dayOfWeek(
-    short year,
-    short month,
-    const short& DAY
-) {
-    if (month < 3) {
-        month += 12;
-        year -= 1;
-    }
-
-    const short YEAR_PART = static_cast<short>(year % 100);
-    const short CENTURY = static_cast<short>(year / 100);
-    const short ZELLER_RESULT = static_cast<short>(
-        (
-            DAY + 13 *
-            (month + 1) / 5 +
-            YEAR_PART + YEAR_PART / 4 +
-            CENTURY / 4 + 5 *
-            CENTURY
-        ) %
-        7
-    );
-
-    return ZELLER_RESULT;
-}
-
-string dayOfWeekName(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY
-) {
-    static const string DAYS[] = {
-        "Saturday",
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-    };
-    return DAYS[
-        dayOfWeek(
-            YEAR,
-            MONTH,
-            DAY
-        )
-    ];
-}
-
 short monthDays(
     const short& YEAR,
     const short& MONTH
@@ -136,18 +87,6 @@ short monthDays(
     }
 }
 
-void showDayName(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY
-) {
-    cout << "Day Name: " << dayOfWeekName(
-        YEAR,
-        MONTH,
-        DAY
-    );
-}
-
 short readDay(
     const short& YEAR,
     const short& MONTH
@@ -169,12 +108,71 @@ short readDay(
     return day;
 }
 
-void printDate(
+short totalDaysFromStartYearToTargetDate(
     const short& YEAR,
     const short& MONTH,
-    const short& DAY,
+    const short& DAY
+) {
+    short totalDays = 0;
+    for (short month = 1; month < MONTH; ++month)
+        totalDays = static_cast<short>(
+            totalDays +
+            monthDays(
+                YEAR,
+                month
+            )
+        );
+    return static_cast<short>(totalDays + DAY);
+}
+
+void printDateByDays(
+    short days,
+    short startYear,
     const char& SEPARATOR
-) { cout << "Date: " << DAY << SEPARATOR << MONTH << SEPARATOR << YEAR << endl; }
+) {
+    while (days >= 365) {
+        days -= isLeapYear(
+                    startYear
+                )
+                    ? 366
+                    : 365;
+        startYear++;
+    }
+
+    short month = 1;
+
+    while (
+        days >= monthDays(
+            startYear,
+            month
+        )
+    ) {
+        days = static_cast<short>(
+            days - monthDays(
+                startYear,
+                month
+            )
+        );
+        month++;
+    }
+
+    cout << "Date: " << days << SEPARATOR << month << SEPARATOR << startYear;
+}
+
+short readDays(
+    const string& INPUT_MESSAGE
+) {
+    short day;
+    do cout << INPUT_MESSAGE << endl;
+    while (
+        !isNumber(
+            day
+        ) || !isPositiveNumber(
+            day
+        )
+    );
+    return day;
+}
 
 int main() {
     const short YEAR = readYear(),
@@ -184,17 +182,21 @@ int main() {
                     MONTH
                 );
     constexpr char SEPARATOR = '-';
-
-    printDate(
-        YEAR,
-        MONTH,
-        DAY,
-        SEPARATOR
-    );
-
-    showDayName(
+    const short TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE = totalDaysFromStartYearToTargetDate(
         YEAR,
         MONTH,
         DAY
+    );
+
+    cout << "Total Days from Start Year to Target Date: " << TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE << "\n\n";
+
+    const short DAYS_TO_ADD = readDays(
+        "How Many Days to Add?"
+    );
+
+    printDateByDays(
+        static_cast<short>(TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE + DAYS_TO_ADD),
+        YEAR,
+        SEPARATOR
     );
 }

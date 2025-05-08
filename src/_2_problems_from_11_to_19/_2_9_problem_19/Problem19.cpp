@@ -1,0 +1,226 @@
+#include <iomanip>
+#include <iostream>
+#include <limits>
+using namespace std;
+
+struct Date {
+    short year;
+    short month;
+    short day;
+};
+
+bool isLeapYear(
+    const short& YEAR
+) {
+    return YEAR % 4 == 0 &&
+    (
+        YEAR % 100 != 0 ||
+        YEAR % 400 == 0
+    );
+}
+
+bool isNumber(
+    short& number
+) {
+    cin >> number;
+    if (
+        const bool VALID = !cin.fail();
+        !VALID
+    ) {
+        cin.clear();
+        cin.ignore(
+            numeric_limits<streamsize>::max(),
+            '\n'
+        );
+        return false;
+    }
+    return true;
+}
+
+bool isPositiveNumber(
+    const short& NUMBER
+) { return NUMBER > 0; }
+
+short readYear() {
+    short year;
+    do cout << "Enter Year:" << endl;
+    while (
+        !isNumber(
+            year
+        ) || !isPositiveNumber(
+            year
+        )
+    );
+    return year;
+}
+
+short readMonth() {
+    short month;
+    do cout << "Enter Month:" << endl;
+    while (
+        !isNumber(
+            month
+        ) || !isPositiveNumber(
+            month
+        ) ||
+        month > 12
+    );
+    return month;
+}
+
+short monthDays(
+    const short& YEAR,
+    const short& MONTH
+) {
+    if (MONTH == 2)
+        return isLeapYear(
+                   YEAR
+               )
+                   ? 29
+                   : 28;
+
+    switch (MONTH) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+        return 31;
+    default:
+        return 30;
+    }
+}
+
+short readDay(
+    const short& YEAR,
+    const short& MONTH
+) {
+    const short MONTH_DAYS = monthDays(
+        YEAR,
+        MONTH
+    );
+    short day;
+    do cout << "Enter Day:" << endl;
+    while (
+        !isNumber(
+            day
+        ) || !isPositiveNumber(
+            day
+        ) ||
+        day > MONTH_DAYS
+    );
+    return day;
+}
+
+Date readDate() {
+    const short YEAR = readYear();
+    const short MONTH = readMonth();
+    const short DAY = readDay(
+        YEAR,
+        MONTH
+    );
+    return {
+        YEAR,
+        MONTH,
+        DAY
+    };
+}
+
+void nextDay(
+    Date& date
+) {
+    if (
+        ++date.day > monthDays(
+            date.year,
+            date.month
+        )
+    ) {
+        date.day = 1;
+        if (++date.month > 12) {
+            date.month = 1;
+            ++date.year;
+        }
+    }
+}
+
+short compareDates(
+    const Date& FIRST_DATE,
+    const Date& SECOND_DATE
+) {
+    if (
+        FIRST_DATE.year == SECOND_DATE.year &&
+        FIRST_DATE.month == SECOND_DATE.month &&
+        FIRST_DATE.day == SECOND_DATE.day
+    )
+        return 0;
+    if (
+        FIRST_DATE.year >= SECOND_DATE.year &&
+        FIRST_DATE.month >= SECOND_DATE.month &&
+        FIRST_DATE.day >= SECOND_DATE.day
+    )
+        return 1;
+    return -1;
+}
+
+int daysDifferenceInDates(
+    Date firstDate,
+    Date secondDate,
+    const bool& INCLUDE_END_DAY = false
+) {
+    int daysDifference = 0;
+    if (
+        compareDates(
+            firstDate,
+            secondDate
+        ) == 1
+    ) {
+        const Date& TEMPORARY_DATE = firstDate;
+        firstDate = secondDate;
+        secondDate = TEMPORARY_DATE;
+    }
+
+    while (
+        !compareDates(
+            firstDate,
+            secondDate
+        ) == 0
+    ) {
+        daysDifference += 1;
+        nextDay(
+            firstDate
+        );
+    }
+
+    return INCLUDE_END_DAY
+               ? ++daysDifference
+               : daysDifference;
+}
+
+Date getSystemDate() {
+    const time_t TIME = time(
+        nullptr
+    );
+    const tm* TIME_NOW = localtime(
+        &TIME
+    );
+    return {
+        static_cast<short>(TIME_NOW->tm_year + 1900),
+        static_cast<short>(TIME_NOW->tm_mon + 1),
+        static_cast<short>(TIME_NOW->tm_mday)
+    };
+}
+
+int main() {
+    const Date FIRST_DATE{
+                   readDate()
+               }, SECOND_DATE{
+                   getSystemDate()
+               };
+
+    cout << "Age Days: " << daysDifferenceInDates(
+        FIRST_DATE,
+        SECOND_DATE
+    ) << " day(s)";
+}

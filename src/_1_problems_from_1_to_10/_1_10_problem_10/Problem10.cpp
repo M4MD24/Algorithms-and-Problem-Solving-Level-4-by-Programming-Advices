@@ -57,7 +57,6 @@ short readMonth() {
         ) || !isPositiveNumber(
             month
         ) ||
-        month < 1 ||
         month > 12
     );
     return month;
@@ -104,7 +103,6 @@ short readDay(
         ) || !isPositiveNumber(
             day
         ) ||
-        day < 1 ||
         day > MONTH_DAYS
     );
     return day;

@@ -3,6 +3,12 @@
 #include <limits>
 using namespace std;
 
+struct Date {
+    short year;
+    short month;
+    short day;
+};
+
 bool isLeapYear(
     const short& YEAR
 ) {
@@ -35,31 +41,19 @@ bool isPositiveNumber(
     const short& NUMBER
 ) { return NUMBER > 0; }
 
-short readYear() {
-    short year;
-    do cout << "Enter Year:" << endl;
+short readNumber(
+    const string& INPUT_TYPE
+) {
+    short number;
+    do cout << "Enter " << INPUT_TYPE << ':' << endl;
     while (
         !isNumber(
-            year
+            number
         ) || !isPositiveNumber(
-            year
+            number
         )
     );
-    return year;
-}
-
-short readMonth() {
-    short month;
-    do cout << "Enter Month:" << endl;
-    while (
-        !isNumber(
-            month
-        ) || !isPositiveNumber(
-            month
-        ) ||
-        month > 12
-    );
-    return month;
+    return number;
 }
 
 short monthDays(
@@ -87,21 +81,37 @@ short monthDays(
     }
 }
 
-void showMonthDays(
-    const short& YEAR,
-    const short& MONTH
-) {
-    cout << "Month Days: " << monthDays(
-        YEAR,
-        MONTH
+Date readDate() {
+    const short YEAR = readNumber(
+        "Year"
     );
+    const short MONTH = readNumber(
+        "Month"
+    );
+    const short DAY = readNumber(
+        "Day"
+    );
+    return {
+        YEAR,
+        MONTH,
+        DAY
+    };
 }
 
 int main() {
-    const short YEAR = readYear();
-    const short MONTH = readMonth();
-    showMonthDays(
-        YEAR,
-        MONTH
+    const Date DATE = {
+        readDate()
+    };
+    cout << "Is Last Month in Year?" << endl;
+    cout << boolalpha << (
+        DATE.day == monthDays(
+            DATE.year,
+            DATE.month
+        )
+    ) << endl;
+
+    cout << "Is Last Day in Month?" << endl;
+    cout << boolalpha << (
+        DATE.month == 12
     );
 }
