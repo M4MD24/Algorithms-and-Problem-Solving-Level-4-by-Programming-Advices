@@ -147,32 +147,6 @@ void printDate(
     const char& SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
-short dayOfWeek(
-    short year,
-    short month,
-    const short& DAY
-) {
-    if (month < 3) {
-        month += 12;
-        year -= 1;
-    }
-
-    const short YEAR_PART = static_cast<short>(year % 100);
-    const short CENTURY = static_cast<short>(year / 100);
-    const short ZELLER_RESULT = static_cast<short>(
-        (
-            DAY + 13 *
-            (month + 1) / 5 +
-            YEAR_PART + YEAR_PART / 4 +
-            CENTURY / 4 + 5 *
-            CENTURY
-        ) %
-        7
-    );
-
-    return ZELLER_RESULT;
-}
-
 short daysUntilEndOfMonth(
     const Date& DATE
 ) {
@@ -198,5 +172,5 @@ int main() {
 
     cout << "Days Until The End of Month: " << daysUntilEndOfMonth(
         SYSTEM_DATE
-    );
+    ) << " Day(s)";
 }

@@ -205,5 +205,5 @@ int main() {
 
     cout << "Days Until The End of Week: " << daysUntilEndOfWeek(
         SYSTEM_DATE
-    );
+    ) << " Day(s)";
 }

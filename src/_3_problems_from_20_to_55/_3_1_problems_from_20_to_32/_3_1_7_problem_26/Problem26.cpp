@@ -175,24 +175,19 @@ void nextYear(
 ) {
     if (
         isLeapYear(
-            date.year
+            date.year++
+        ) && (
+            date.month > 2 ||
+            (
+                date.month == 2 &&
+                date.day == 29
+            )
         )
     )
-        nextDays(
-            366,
-            date
-        );
-    else
-        nextDays(
-            365,
+        nextDay(
             date
         );
 }
-
-void printDate(
-    const Date& DATE,
-    const char& SEPARATOR
-) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 void nextYears(
     short& yearCount,
@@ -203,6 +198,11 @@ void nextYears(
             date
         );
 }
+
+void printDate(
+    const Date& DATE,
+    const char& SEPARATOR
+) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 int main() {
     Date date{
