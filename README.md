@@ -56,3 +56,4 @@
         2. [Problem 48](src/_3_problems_from_20_to_55/_3_3_problems_from_47_to_53/_3_3_2_problem_48)
         3. [Problem 49](src/_3_problems_from_20_to_55/_3_3_problems_from_47_to_53/_3_3_3_problem_49)
         4. [Problem 50](src/_3_problems_from_20_to_55/_3_3_problems_from_47_to_53/_3_3_4_problem_50)
+        5. [Problem 51](src/_3_problems_from_20_to_55/_3_3_problems_from_47_to_53/_3_3_5_problem_51)
