@@ -19,55 +19,6 @@ bool isLeapYear(
     );
 }
 
-bool isNumber(
-    short& number
-) {
-    cin >> number;
-    if (
-        const bool VALID = !cin.fail();
-        !VALID
-    ) {
-        cin.clear();
-        cin.ignore(
-            numeric_limits<streamsize>::max(),
-            '\n'
-        );
-        return false;
-    }
-    return true;
-}
-
-bool isPositiveNumber(
-    const short& NUMBER
-) { return NUMBER > 0; }
-
-short readYear() {
-    short year;
-    do cout << "Enter Year:" << endl;
-    while (
-        !isNumber(
-            year
-        ) || !isPositiveNumber(
-            year
-        )
-    );
-    return year;
-}
-
-short readMonth() {
-    short month;
-    do cout << "Enter Month:" << endl;
-    while (
-        !isNumber(
-            month
-        ) || !isPositiveNumber(
-            month
-        ) ||
-        month > 12
-    );
-    return month;
-}
-
 short monthDays(
     const short& YEAR,
     const short& MONTH
@@ -91,41 +42,6 @@ short monthDays(
     default:
         return 30;
     }
-}
-
-short readDay(
-    const short& YEAR,
-    const short& MONTH
-) {
-    const short MONTH_DAYS = monthDays(
-        YEAR,
-        MONTH
-    );
-    short day;
-    do cout << "Enter Day:" << endl;
-    while (
-        !isNumber(
-            day
-        ) || !isPositiveNumber(
-            day
-        ) ||
-        day > MONTH_DAYS
-    );
-    return day;
-}
-
-Date readDate() {
-    const short YEAR = readYear();
-    const short MONTH = readMonth();
-    const short DAY = readDay(
-        YEAR,
-        MONTH
-    );
-    return {
-        YEAR,
-        MONTH,
-        DAY
-    };
 }
 
 Date getSystemDate() {
