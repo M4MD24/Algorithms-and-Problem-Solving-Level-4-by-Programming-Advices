@@ -128,51 +128,65 @@ Date readDate() {
     };
 }
 
-void nextDay(
-    Date& date
-) {
-    if (
-        ++date.day > monthDays(
-            date.year,
-            date.month
-        )
-    ) {
-        date.day = 1;
-        if (++date.month > 12) {
-            date.month = 1;
-            ++date.year;
-        }
-    }
+Date getSystemDate() {
+    const time_t TIME = time(
+        nullptr
+    );
+    const tm* TIME_NOW = localtime(
+        &TIME
+    );
+    return {
+        static_cast<short>(TIME_NOW->tm_year + 1900),
+        static_cast<short>(TIME_NOW->tm_mon + 1),
+        static_cast<short>(TIME_NOW->tm_mday)
+    };
 }
 
-void nextDays(
-    short dayCount,
-    Date& date
+short dayOfWeek(
+    short year,
+    short month,
+    const short& DAY
 ) {
-    while (dayCount--)
-        nextDay(
-            date
-        );
+    if (month < 3) {
+        month += 12;
+        year -= 1;
+    }
+
+    const short YEAR_PART = static_cast<short>(year % 100);
+    const short CENTURY = static_cast<short>(year / 100);
+    const short ZELLER_RESULT = static_cast<short>(
+        (
+            DAY + 13 *
+            (month + 1) / 5 +
+            YEAR_PART + YEAR_PART / 4 +
+            CENTURY / 4 + 5 *
+            CENTURY
+        ) %
+        7
+    );
+
+    return ZELLER_RESULT;
 }
 
-void nextYear(
-    Date& date
+string dayOfWeekName(
+    const Date& DATE
 ) {
-    if (
-        isLeapYear(
-            date.year++
-        ) && (
-            date.month > 2 ||
-            (
-                date.month == 2 &&
-                date.day == 29
-            )
+    static const string DAYS[] = {
+        "Saturday",
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+    };
+    return DAYS[
+        dayOfWeek(
+            DATE.year,
+            DATE.month,
+            DATE.day
         )
-    ) {
-        nextDay(
-            date
-        );
-    }
+    ];
 }
 
 void printDate(
@@ -180,18 +194,36 @@ void printDate(
     const char& SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
+bool IsEndOfWeek(
+    const short& DAY_OF_WEEK
+) { return DAY_OF_WEEK == 6; }
+
 int main() {
-    Date date{
-        readDate()
+    const Date SYSTEM_DATE{
+        getSystemDate()
     };
     constexpr char SEPARATOR = '-';
 
-    nextYear(
-        date
-    );
-
     printDate(
-        date,
+        SYSTEM_DATE,
         SEPARATOR
     );
+
+    cout << endl << endl;
+
+    const string DAY_OF_WEEK_NAME = dayOfWeekName(
+        SYSTEM_DATE
+    );
+    cout << "Day Name: " << DAY_OF_WEEK_NAME;
+
+    cout << endl << endl;
+
+    cout << "Is it End of Week?" << endl <<
+        boolalpha << IsEndOfWeek(
+            dayOfWeek(
+                SYSTEM_DATE.year,
+                SYSTEM_DATE.month,
+                SYSTEM_DATE.day
+            )
+        );
 }

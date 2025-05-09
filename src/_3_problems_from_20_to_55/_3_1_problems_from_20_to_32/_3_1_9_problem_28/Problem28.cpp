@@ -160,18 +160,19 @@ void nextYear(
 ) {
     if (
         isLeapYear(
-            date.year
+            date.year++
+        ) && (
+            date.month > 2 ||
+            (
+                date.month == 2 &&
+                date.day == 29
+            )
         )
-    )
-        nextDays(
-            366,
+    ) {
+        nextDay(
             date
         );
-    else
-        nextDays(
-            365,
-            date
-        );
+    }
 }
 
 void nextDecade(

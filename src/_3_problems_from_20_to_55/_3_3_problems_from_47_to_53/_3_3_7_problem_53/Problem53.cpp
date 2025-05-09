@@ -128,51 +128,18 @@ Date readDate() {
     };
 }
 
-void nextDay(
-    Date& date
-) {
-    if (
-        ++date.day > monthDays(
-            date.year,
-            date.month
-        )
-    ) {
-        date.day = 1;
-        if (++date.month > 12) {
-            date.month = 1;
-            ++date.year;
-        }
-    }
-}
-
-void nextDays(
-    short dayCount,
-    Date& date
-) {
-    while (dayCount--)
-        nextDay(
-            date
-        );
-}
-
-void nextYear(
-    Date& date
-) {
-    if (
-        isLeapYear(
-            date.year++
-        ) && (
-            date.month > 2 ||
-            (
-                date.month == 2 &&
-                date.day == 29
-            )
-        )
-    ) {
-        nextDay(
-            date
-        );
-    }
+Date getSystemDate() {
+    const time_t TIME = time(
+        nullptr
+    );
+    const tm* TIME_NOW = localtime(
+        &TIME
+    );
+    return {
+        static_cast<short>(TIME_NOW->tm_year + 1900),
+        static_cast<short>(TIME_NOW->tm_mon + 1),
+        static_cast<short>(TIME_NOW->tm_mday)
+    };
 }
 
 void printDate(
@@ -180,18 +147,41 @@ void printDate(
     const char& SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
+short daysUntilEndOfYear(
+    const Date& DATE
+) {
+    const short REMAINDER = isLeapYear(
+                                DATE.year
+                            )
+                                ? 366
+                                : 365;
+    short daysBeforeTargetDate = DATE.day;
+    for (short month = 1; month < DATE.month; ++month)
+        daysBeforeTargetDate = static_cast<short>(
+            daysBeforeTargetDate +
+            monthDays(
+                DATE.year,
+                month
+            )
+        );
+
+    return REMAINDER - daysBeforeTargetDate;
+}
+
 int main() {
-    Date date{
-        readDate()
+    const Date SYSTEM_DATE{
+        getSystemDate()
     };
     constexpr char SEPARATOR = '-';
 
-    nextYear(
-        date
-    );
-
     printDate(
-        date,
+        SYSTEM_DATE,
         SEPARATOR
     );
+
+    cout << endl << endl;
+
+    cout << "Days Until The End of Year: " << daysUntilEndOfYear(
+        SYSTEM_DATE
+    ) << " Day(s)";
 }

@@ -164,12 +164,12 @@ short compareDates(
     return -1;
 }
 
-int daysDifferenceInDates(
+short daysDifferenceInDates(
     Date firstDate,
     Date secondDate,
     const bool& INCLUDE_END_DAY = false
 ) {
-    int daysDifference = 0;
+    short daysDifference = 0;
     if (
         compareDates(
             firstDate,
@@ -198,29 +198,21 @@ int daysDifferenceInDates(
                : daysDifference;
 }
 
-Date getSystemDate() {
-    const time_t TIME = time(
-        nullptr
-    );
-    const tm* TIME_NOW = localtime(
-        &TIME
-    );
-    return {
-        static_cast<short>(TIME_NOW->tm_year + 1900),
-        static_cast<short>(TIME_NOW->tm_mon + 1),
-        static_cast<short>(TIME_NOW->tm_mday)
-    };
-}
-
 int main() {
     const Date FIRST_DATE{
                    readDate()
                }, SECOND_DATE{
-                   getSystemDate()
+                   readDate()
                };
 
-    cout << "Age Days: " << daysDifferenceInDates(
+    cout << "Days difference in dates: " << daysDifferenceInDates(
         FIRST_DATE,
         SECOND_DATE
+    ) << " day(s)" << endl;
+
+    cout << "Days difference in dates (Including End Day): " << daysDifferenceInDates(
+        FIRST_DATE,
+        SECOND_DATE,
+        true
     ) << " day(s)";
 }

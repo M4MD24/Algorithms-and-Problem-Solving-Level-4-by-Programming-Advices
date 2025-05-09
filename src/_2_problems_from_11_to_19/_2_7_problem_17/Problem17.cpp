@@ -176,7 +176,7 @@ short daysDifferenceInDates(
             secondDate
         ) == 1
     ) {
-        const Date& TEMPORARY_DATE = firstDate;
+        const Date TEMPORARY_DATE = firstDate;
         firstDate = secondDate;
         secondDate = TEMPORARY_DATE;
     }
@@ -193,9 +193,11 @@ short daysDifferenceInDates(
         );
     }
 
-    return INCLUDE_END_DAY
-               ? ++daysDifference
-               : daysDifference;
+    return static_cast<short>(
+        INCLUDE_END_DAY
+            ? daysDifference + 1
+            : daysDifference
+    );
 }
 
 int main() {
