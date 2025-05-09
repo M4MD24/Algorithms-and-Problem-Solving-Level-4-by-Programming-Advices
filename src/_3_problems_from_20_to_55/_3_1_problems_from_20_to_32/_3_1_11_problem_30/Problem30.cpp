@@ -192,7 +192,7 @@ void nextYear(
 void nextDecade(
     Date& date
 ) {
-    for (int year = 0; year < 10; ++year)
+    for (short year = 0; year < 10; ++year)
         nextYear(
             date
         );

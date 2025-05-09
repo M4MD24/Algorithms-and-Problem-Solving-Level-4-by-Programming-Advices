@@ -128,34 +128,32 @@ Date readDate() {
     };
 }
 
-void nextDay(
+void previousDay(
     Date& date
 ) {
-    if (
-        ++date.day > monthDays(
+    if (--date.day == 0) {
+        if (--date.month == 0) {
+            date.month = 12;
+            --date.year;
+        }
+        date.day = monthDays(
             date.year,
             date.month
-        )
-    ) {
-        date.day = 1;
-        if (++date.month > 12) {
-            date.month = 1;
-            ++date.year;
-        }
+        );
     }
 }
 
-void nextDays(
+void previousDays(
     short dayCount,
     Date& date
 ) {
     while (dayCount--)
-        nextDay(
+        previousDay(
             date
         );
 }
 
-void nextYear(
+void previousYear(
     Date& date
 ) {
     if (
@@ -163,40 +161,22 @@ void nextYear(
             date.year
         )
     )
-        nextDays(
+        previousDays(
             366,
             date
         );
     else
-        nextDays(
+        previousDays(
             365,
             date
         );
 }
 
-void nextDecade(
+void previousDecade(
     Date& date
 ) {
     for (short year = 0; year < 10; ++year)
-        nextYear(
-            date
-        );
-}
-
-void nextCentury(
-    Date& date
-) {
-    for (short decades = 0; decades < 10; ++decades)
-        nextDecade(
-            date
-        );
-}
-
-void nextMillennium(
-    Date& date
-) {
-    for (short century = 0; century < 10; ++century)
-        nextCentury(
+        previousYear(
             date
         );
 }
@@ -212,7 +192,7 @@ int main() {
     };
     constexpr char SEPARATOR = '-';
 
-    nextMillennium(
+    previousDecade(
         date
     );
 
