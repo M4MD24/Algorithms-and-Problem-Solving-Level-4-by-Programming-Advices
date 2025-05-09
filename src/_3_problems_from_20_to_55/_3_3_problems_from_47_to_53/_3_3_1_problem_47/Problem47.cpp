@@ -128,91 +128,33 @@ Date readDate() {
     };
 }
 
-void nextDay(
-    Date& date
-) {
-    if (
-        ++date.day > monthDays(
-            date.year,
-            date.month
-        )
-    ) {
-        date.day = 1;
-        if (++date.month > 12) {
-            date.month = 1;
-            ++date.year;
-        }
-    }
+Date getSystemDate() {
+    const time_t TIME = time(
+        nullptr
+    );
+    const tm* TIME_NOW = localtime(
+        &TIME
+    );
+    return {
+        static_cast<short>(TIME_NOW->tm_year + 1900),
+        static_cast<short>(TIME_NOW->tm_mon + 1),
+        static_cast<short>(TIME_NOW->tm_mday)
+    };
 }
 
-short compareDates(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
-) {
-    if (
-        FIRST_DATE.year == SECOND_DATE.year &&
-        FIRST_DATE.month == SECOND_DATE.month &&
-        FIRST_DATE.day == SECOND_DATE.day
-    )
-        return 0;
-    if (
-        FIRST_DATE.year >= SECOND_DATE.year &&
-        FIRST_DATE.month >= SECOND_DATE.month &&
-        FIRST_DATE.day >= SECOND_DATE.day
-    )
-        return 1;
-    return -1;
-}
-
-short daysDifferenceInDates(
-    Date firstDate,
-    Date secondDate,
-    const bool& INCLUDE_END_DAY = false
-) {
-    short daysDifference = 0;
-    if (
-        compareDates(
-            firstDate,
-            secondDate
-        ) == 1
-    ) {
-        const Date& TEMPORARY_DATE = firstDate;
-        firstDate = secondDate;
-        secondDate = TEMPORARY_DATE;
-    }
-
-    while (
-        !compareDates(
-            firstDate,
-            secondDate
-        ) == 0
-    ) {
-        daysDifference += 1;
-        nextDay(
-            firstDate
-        );
-    }
-
-    return INCLUDE_END_DAY
-               ? ++daysDifference
-               : daysDifference;
-}
+void printDate(
+    const Date& DATE,
+    const char& SEPARATOR
+) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 int main() {
-    const Date FIRST_DATE{
-                   readDate()
-               }, SECOND_DATE{
-                   readDate()
-               };
+    const Date SYSTEM_DATE{
+        getSystemDate()
+    };
+    constexpr char SEPARATOR = '-';
 
-    cout << "Days difference in dates: " << daysDifferenceInDates(
-        FIRST_DATE,
-        SECOND_DATE
-    ) << " day(s)" << endl;
-
-    cout << "Days difference in dates (Including End Day): " << daysDifferenceInDates(
-        FIRST_DATE,
-        SECOND_DATE,
-        true
-    ) << " day(s)";
+    printDate(
+        SYSTEM_DATE,
+        SEPARATOR
+    );
 }
