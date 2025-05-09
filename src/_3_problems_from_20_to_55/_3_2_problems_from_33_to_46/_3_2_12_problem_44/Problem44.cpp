@@ -3,6 +3,12 @@
 #include <limits>
 using namespace std;
 
+struct Date {
+    short year;
+    short month;
+    short day;
+};
+
 bool isLeapYear(
     const short& YEAR
 ) {
@@ -108,95 +114,120 @@ short readDay(
     return day;
 }
 
-short totalDaysFromStartYearToTargetDate(
-    const short& YEAR,
-    const short& MONTH,
-    const short& DAY
-) {
-    short totalDays = 0;
-    for (short month = 1; month < MONTH; ++month)
-        totalDays = static_cast<short>(
-            totalDays +
-            monthDays(
-                YEAR,
-                month
-            )
-        );
-    return static_cast<short>(totalDays + DAY);
-}
-
-void printDateByDays(
-    short days,
-    short startYear,
-    const char& SEPARATOR
-) {
-    while (days >= 365) {
-        days -= isLeapYear(
-                    startYear
-                )
-                    ? 366
-                    : 365;
-        startYear++;
-    }
-
-    short month = 1;
-
-    while (
-        days >= monthDays(
-            startYear,
-            month
-        )
-    ) {
-        days = static_cast<short>(
-            days - monthDays(
-                startYear,
-                month
-            )
-        );
-        month++;
-    }
-
-    cout << "Date: " << days << SEPARATOR << month << SEPARATOR << startYear;
-}
-
-short readDays(
-    const string& INPUT_MESSAGE
-) {
-    short days;
-    do cout << INPUT_MESSAGE << endl;
-    while (
-        !isNumber(
-            days
-        ) || !isPositiveNumber(
-            days
-        )
+Date readDate() {
+    const short YEAR = readYear();
+    const short MONTH = readMonth();
+    const short DAY = readDay(
+        YEAR,
+        MONTH
     );
-    return days;
-}
-
-int main() {
-    const short YEAR = readYear(),
-                MONTH = readMonth(),
-                DAY = readDay(
-                    YEAR,
-                    MONTH
-                );
-    constexpr char SEPARATOR = '-';
-    const short TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE = totalDaysFromStartYearToTargetDate(
+    return {
         YEAR,
         MONTH,
         DAY
+    };
+}
+
+short readDecade(
+    const string& INPUT_MESSAGE
+) {
+    short decades;
+    do cout << INPUT_MESSAGE << endl;
+    while (
+        !isNumber(
+            decades
+        ) || !isPositiveNumber(
+            decades
+        )
+    );
+    return decades;
+}
+
+void previousDay(
+    Date& date
+) {
+    if (--date.day == 0) {
+        if (--date.month == 0) {
+            date.month = 12;
+            --date.year;
+        }
+        date.day = monthDays(
+            date.year,
+            date.month
+        );
+    }
+}
+
+void previousDays(
+    short dayCount,
+    Date& date
+) {
+    while (dayCount--)
+        previousDay(
+            date
+        );
+}
+
+void previousYear(
+    Date& date
+) {
+    if (
+        isLeapYear(
+            date.year
+        )
+    )
+        previousDays(
+            366,
+            date
+        );
+    else
+        previousDays(
+            365,
+            date
+        );
+}
+
+void previousDecade(
+    Date& date
+) {
+    for (short year = 0; year < 10; ++year)
+        previousYear(
+            date
+        );
+}
+
+void previousDecades(
+    short& decadeCount,
+    Date& date
+) {
+    while (decadeCount--)
+        previousDecade(
+            date
+        );
+}
+
+void printDate(
+    const Date& DATE,
+    const char& SEPARATOR
+) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
+
+int main() {
+    Date date{
+        readDate()
+    };
+    constexpr char SEPARATOR = '-';
+
+    short decadeCount = readDecade(
+        "How Many Decades to Subtract?"
     );
 
-    cout << "Total Days from Start Year to Target Date: " << TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE << "\n\n";
-
-    const short DAYS_TO_ADD = readDays(
-        "How Many Days to Add?"
+    previousDecades(
+        decadeCount,
+        date
     );
 
-    printDateByDays(
-        static_cast<short>(TOTAL_DAYS_FROM_START_YEAR_TO_TARGET_DATE + DAYS_TO_ADD),
-        YEAR,
+    printDate(
+        date,
         SEPARATOR
     );
 }

@@ -136,12 +136,13 @@ void nextMonth(
         date.year++;
     }
 
-    const short MONTH_DAYS = monthDays(
-        date.year,
-        date.month
-    );
-
-    if (date.day > MONTH_DAYS)
+    if (
+        const short MONTH_DAYS = monthDays(
+            date.year,
+            date.month
+        );
+        date.day > MONTH_DAYS
+    )
         date.day = MONTH_DAYS;
 }
 

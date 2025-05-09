@@ -177,7 +177,7 @@ void nextYear(
 void nextDecade(
     Date& date
 ) {
-    for (int year = 0; year < 10; ++year)
+    for (short year = 0; year < 10; ++year)
         nextYear(
             date
         );
@@ -186,7 +186,7 @@ void nextDecade(
 void nextCentury(
     Date& date
 ) {
-    for (int decades = 0; decades < 10; ++decades)
+    for (short decades = 0; decades < 10; ++decades)
         nextDecade(
             date
         );
@@ -195,7 +195,7 @@ void nextCentury(
 void nextMillennium(
     Date& date
 ) {
-    for (int century = 0; century < 10; ++century)
+    for (short century = 0; century < 10; ++century)
         nextCentury(
             date
         );

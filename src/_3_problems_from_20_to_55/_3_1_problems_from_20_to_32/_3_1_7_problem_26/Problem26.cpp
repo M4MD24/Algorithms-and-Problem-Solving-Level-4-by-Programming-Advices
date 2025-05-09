@@ -131,16 +131,16 @@ Date readDate() {
 short readYears(
     const string& INPUT_MESSAGE
 ) {
-    short year;
+    short years;
     do cout << INPUT_MESSAGE << endl;
     while (
         !isNumber(
-            year
+            years
         ) || !isPositiveNumber(
-            year
+            years
         )
     );
-    return year;
+    return years;
 }
 
 void nextDay(

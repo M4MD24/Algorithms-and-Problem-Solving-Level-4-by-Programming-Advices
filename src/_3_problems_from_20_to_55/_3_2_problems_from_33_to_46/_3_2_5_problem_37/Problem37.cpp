@@ -128,45 +128,22 @@ Date readDate() {
     };
 }
 
-short readWeeks(
-    const string& INPUT_MESSAGE
-) {
-    short weeks;
-    do cout << INPUT_MESSAGE << endl;
-    while (
-        !isNumber(
-            weeks
-        ) || !isPositiveNumber(
-            weeks
-        )
-    );
-    return weeks;
-}
-
-void nextDay(
+void previousMonth(
     Date& date
 ) {
+    if (--date.month == 0) {
+        date.month = 12;
+        date.year--;
+    }
+
     if (
-        ++date.day > monthDays(
+        const short MONTH_DAYS = monthDays(
             date.year,
             date.month
-        )
-    ) {
-        date.day = 1;
-        if (++date.month > 12) {
-            date.month = 1;
-            ++date.year;
-        }
-    }
-}
-
-void nextWeek(
-    Date& date
-) {
-    for (short day = 0; day < 7; ++day)
-        nextDay(
-            date
         );
+        date.day > MONTH_DAYS
+    )
+        date.day = MONTH_DAYS;
 }
 
 void printDate(
@@ -174,28 +151,13 @@ void printDate(
     const char& SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
-void nextWeeks(
-    short& weekCount,
-    Date& date
-) {
-    while (weekCount--)
-        nextWeek(
-            date
-        );
-}
-
 int main() {
     Date date{
         readDate()
     };
     constexpr char SEPARATOR = '-';
 
-    short weeks = readWeeks(
-        "How Many Weeks to Add?"
-    );
-
-    nextWeeks(
-        weeks,
+    previousMonth(
         date
     );
 
