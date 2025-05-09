@@ -48,3 +48,4 @@
         9. [Problem 41](src/_3_problems_from_20_to_55/_3_2_problems_from_33_to_46/_3_2_9_problem_41)
         10. [Problem 42](src/_3_problems_from_20_to_55/_3_2_problems_from_33_to_46/_3_2_10_problem_42)
         11. [Problem 43](src/_3_problems_from_20_to_55/_3_2_problems_from_33_to_46/_3_2_11_problem_43)
+        12. [Problem 44](src/_3_problems_from_20_to_55/_3_2_problems_from_33_to_46/_3_2_12_problem_44)
