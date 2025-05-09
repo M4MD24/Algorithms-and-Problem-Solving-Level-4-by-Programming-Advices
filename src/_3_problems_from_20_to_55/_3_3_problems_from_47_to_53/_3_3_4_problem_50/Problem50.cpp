@@ -194,9 +194,17 @@ void printDate(
     const char& SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
-bool IsEndOfWeek(
+bool isWeekend(
     const short& DAY_OF_WEEK
 ) { return DAY_OF_WEEK == 6; }
+
+bool isBusinessDay(
+    const short& DAY_OF_WEEK
+) {
+    return !isWeekend(
+        DAY_OF_WEEK
+    );
+}
 
 int main() {
     const Date SYSTEM_DATE{
@@ -218,8 +226,8 @@ int main() {
 
     cout << endl << endl;
 
-    cout << "Is it End of Week?" << endl <<
-        boolalpha << IsEndOfWeek(
+    cout << "Is it Business Day?" << endl <<
+        boolalpha << isBusinessDay(
             dayOfWeek(
                 SYSTEM_DATE.year,
                 SYSTEM_DATE.month,
