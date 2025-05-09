@@ -128,6 +128,21 @@ Date readDate() {
     };
 }
 
+short readVacationDays(
+    const string& INPUT_MESSAGE
+) {
+    short vacationDays;
+    do cout << INPUT_MESSAGE << endl;
+    while (
+        !isNumber(
+            vacationDays
+        ) || !isPositiveNumber(
+            vacationDays
+        )
+    );
+    return vacationDays;
+}
+
 void printDate(
     const Date& DATE,
     const char& SEPARATOR
@@ -236,33 +251,50 @@ short vacationDays(
     return counter;
 }
 
+Date dateAfterVacationDays(
+    short& vacationDays,
+    Date date
+) {
+    while (vacationDays) {
+        if (
+            isWeekend(
+                dayOfWeek(
+                    date.year,
+                    date.month,
+                    date.day
+                )
+            )
+        )
+            vacationDays--;
+        nextDay(
+            date
+        );
+    }
+    return date;
+}
+
 int main() {
-    Date firstDate{
-        readDate()
-    };
-    const Date SECOND_DATE{
+    const Date VACATION_DAY{
         readDate()
     };
     constexpr char SEPARATOR = '-';
-
-    cout << "First ";
-    printDate(
-        firstDate,
-        SEPARATOR
+    short vacationDays = readVacationDays(
+        "Enter Vacation Days:"
     );
 
-    cout << endl;
-
-    cout << "Second ";
+    cout << "Start ";
     printDate(
-        SECOND_DATE,
+        VACATION_DAY,
         SEPARATOR
     );
 
     cout << endl << endl;
 
-    cout << "Vacation Days is: " << vacationDays(
-        firstDate,
-        SECOND_DATE
-    ) << " Day(s)";
+    printDate(
+        dateAfterVacationDays(
+            vacationDays,
+            VACATION_DAY
+        ),
+        SEPARATOR
+    );
 }
