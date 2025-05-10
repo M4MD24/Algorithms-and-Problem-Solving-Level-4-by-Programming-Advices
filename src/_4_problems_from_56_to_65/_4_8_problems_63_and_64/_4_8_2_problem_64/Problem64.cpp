@@ -2,7 +2,7 @@
 #include <iostream>
 #include <limits>
 #include <vector>
-#include "Trim.h"
+#include "../Trim.h"
 using namespace std;
 using namespace Trim;
 
