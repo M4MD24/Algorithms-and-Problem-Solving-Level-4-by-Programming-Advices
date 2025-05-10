@@ -47,8 +47,6 @@ short readYear() {
     while (
         !isNumber(
             year
-        ) || !isPositiveNumber(
-            year
         )
     );
     return year;
@@ -60,12 +58,31 @@ short readMonth() {
     while (
         !isNumber(
             month
-        ) || !isPositiveNumber(
-            month
-        ) ||
-        month > 12
+        )
     );
     return month;
+}
+
+short readDay() {
+    short day;
+    do cout << "Enter Day:" << endl;
+    while (
+        !isNumber(
+            day
+        )
+    );
+    return day;
+}
+
+Date readDate() {
+    const short YEAR = readYear(),
+                MONTH = readMonth(),
+                DAY = readDay();
+    return {
+        YEAR,
+        MONTH,
+        DAY
+    };
 }
 
 short monthDays(
@@ -93,64 +110,35 @@ short monthDays(
     }
 }
 
-short readDay(
-    const short& YEAR,
-    const short& MONTH
+bool dateIsValid(
+    const Date& DATE
 ) {
-    const short MONTH_DAYS = monthDays(
-        YEAR,
-        MONTH
-    );
-    short day;
-    do cout << "Enter Day:" << endl;
-    while (
-        !isNumber(
-            day
-        ) || !isPositiveNumber(
-            day
-        ) ||
-        day > MONTH_DAYS
-    );
-    return day;
-}
-
-Date readDate() {
-    const short YEAR = readYear();
-    const short MONTH = readMonth();
-    const short DAY = readDay(
-        YEAR,
-        MONTH
-    );
-    return {
-        YEAR,
-        MONTH,
-        DAY
-    };
-}
-
-short areDatesEqual(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
-) {
-    return FIRST_DATE.year == SECOND_DATE.year &&
-        FIRST_DATE.month == SECOND_DATE.month &&
-        FIRST_DATE.day == SECOND_DATE.day;
+    return isPositiveNumber(
+            DATE.year
+        ) &&
+        isPositiveNumber(
+            DATE.month
+        ) &&
+        DATE.month <= 12 &&
+        isPositiveNumber(
+            DATE.day &&
+            DATE.day <= monthDays(
+                DATE.year,
+                DATE.month
+            )
+        );
 }
 
 int main() {
-    const Date FIRST_DATE{
-                   readDate()
-               },
-               SECOND_DATE{
-                   readDate()
-               };
+    const Date DATE{
+        readDate()
+    };
 
-    cout << "First Date is" << (
-        areDatesEqual(
-            FIRST_DATE,
-            SECOND_DATE
+    cout << "Date is" << (
+        dateIsValid(
+            DATE
         )
             ? ""
             : "n't"
-    ) << " Equal to Second Date";
+    ) << " Valid";
 }

@@ -9,6 +9,12 @@ struct Date {
     short day;
 };
 
+enum DateCompare {
+    Before = -1,
+    Equal = 0,
+    After = 1
+};
+
 bool isLeapYear(
     const short& YEAR
 ) {
@@ -114,7 +120,10 @@ short readDay(
     return day;
 }
 
-Date readDate() {
+Date readDate(
+    const string& INPUT_TYPE
+) {
+    cout << INPUT_TYPE << endl;
     const short YEAR = readYear();
     const short MONTH = readMonth();
     const short DAY = readDay(
@@ -128,7 +137,24 @@ Date readDate() {
     };
 }
 
-short compareDates(
+void nextDay(
+    Date& date
+) {
+    if (
+        ++date.day > monthDays(
+            date.year,
+            date.month
+        )
+    ) {
+        date.day = 1;
+        if (++date.month > 12) {
+            date.month = 1;
+            ++date.year;
+        }
+    }
+}
+
+DateCompare compareDates(
     const Date& FIRST_DATE,
     const Date& SECOND_DATE
 ) {
@@ -137,49 +163,68 @@ short compareDates(
         FIRST_DATE.month == SECOND_DATE.month &&
         FIRST_DATE.day == SECOND_DATE.day
     )
-        return 0;
+        return Equal;
     if (
         FIRST_DATE.year >= SECOND_DATE.year &&
         FIRST_DATE.month >= SECOND_DATE.month &&
         FIRST_DATE.day >= SECOND_DATE.day
     )
-        return 1;
-    return -1;
+        return After;
+    return Before;
 }
 
-string dateComparisonText(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
+short daysDifferenceInDates(
+    Date firstDate,
+    Date secondDate,
+    const bool& INCLUDE_END_DAY = false
 ) {
-    string result = "First Date is ";
-    switch (
+    short daysDifference = 0;
+    if (
         compareDates(
-            FIRST_DATE,
-            SECOND_DATE
-        )
+            firstDate,
+            secondDate
+        ) == 1
     ) {
-    case 0:
-        result += "Equal to";
-        break;
-    case 1:
-        result += "Bigger Than";
-        break;
-    default:
-        result += "Less Than";
+        const Date TEMPORARY_DATE = firstDate;
+        firstDate = secondDate;
+        secondDate = TEMPORARY_DATE;
     }
-    return result + " Second Date";
+
+    while (
+        !compareDates(
+            firstDate,
+            secondDate
+        ) == 0
+    ) {
+        daysDifference += 1;
+        nextDay(
+            firstDate
+        );
+    }
+
+    return static_cast<short>(
+        INCLUDE_END_DAY
+            ? daysDifference + 1
+            : daysDifference
+    );
 }
 
 int main() {
-    const Date FIRST_DATE{
-                   readDate()
-               },
-               SECOND_DATE{
-                   readDate()
-               };
+    const Date FIRST_DATE = readDate(
+                   "Start Date"
+               ),
+               SECOND_DATE = readDate(
+                   "End Date"
+               );
 
-    cout << dateComparisonText(
+    cout << "Days difference in dates: " << daysDifferenceInDates(
         FIRST_DATE,
         SECOND_DATE
-    );
+    ) << " day(s)" << endl;
+
+    cout << "Days difference in dates (Including End Day): " << daysDifferenceInDates(
+        FIRST_DATE,
+        SECOND_DATE,
+        true
+    ) << " day(s)";
 }

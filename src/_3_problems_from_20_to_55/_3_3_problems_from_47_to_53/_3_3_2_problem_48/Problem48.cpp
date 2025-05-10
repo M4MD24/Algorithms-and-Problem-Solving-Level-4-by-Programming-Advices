@@ -1,6 +1,5 @@
 #include <iomanip>
 #include <iostream>
-#include <limits>
 using namespace std;
 
 struct Date {
@@ -8,7 +7,6 @@ struct Date {
     short month;
     short day;
 };
-
 
 Date getSystemDate() {
     const time_t TIME = time(

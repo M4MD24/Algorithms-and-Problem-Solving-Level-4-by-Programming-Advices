@@ -9,6 +9,17 @@ struct Date {
     short day;
 };
 
+struct Period {
+    Date startDate;
+    Date endDate;
+};
+
+enum DateCompare {
+    Before = -1,
+    Equal = 0,
+    After = 1
+};
+
 bool isLeapYear(
     const short& YEAR
 ) {
@@ -114,7 +125,10 @@ short readDay(
     return day;
 }
 
-Date readDate() {
+Date readDate(
+    const string& INPUT_TYPE
+) {
+    cout << INPUT_TYPE << endl;
     const short YEAR = readYear();
     const short MONTH = readMonth();
     const short DAY = readDay(
@@ -128,7 +142,25 @@ Date readDate() {
     };
 }
 
-short compareDates(
+Period readPeriod(
+    const string& INPUT_TYPE
+) {
+    cout << "# " << INPUT_TYPE << endl;
+
+    const Date FIRST_DATE = readDate(
+                   "Start Date"
+               ),
+               SECOND_DATE = readDate(
+                   "End Date"
+               );
+
+    return {
+        FIRST_DATE,
+        SECOND_DATE
+    };
+}
+
+DateCompare compareDates(
     const Date& FIRST_DATE,
     const Date& SECOND_DATE
 ) {
@@ -137,49 +169,49 @@ short compareDates(
         FIRST_DATE.month == SECOND_DATE.month &&
         FIRST_DATE.day == SECOND_DATE.day
     )
-        return 0;
+        return Equal;
     if (
         FIRST_DATE.year >= SECOND_DATE.year &&
         FIRST_DATE.month >= SECOND_DATE.month &&
         FIRST_DATE.day >= SECOND_DATE.day
     )
-        return 1;
-    return -1;
+        return After;
+    return Before;
 }
 
-string dateComparisonText(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
+bool comparePeriod(
+    const Period& FIRST_DATE,
+    const Period& SECOND_DATE
 ) {
-    string result = "First Date is ";
-    switch (
+    return !(
         compareDates(
-            FIRST_DATE,
-            SECOND_DATE
-        )
-    ) {
-    case 0:
-        result += "Equal to";
-        break;
-    case 1:
-        result += "Bigger Than";
-        break;
-    default:
-        result += "Less Than";
-    }
-    return result + " Second Date";
+            SECOND_DATE.endDate,
+            FIRST_DATE.startDate
+        ) == Before ||
+        compareDates(
+            SECOND_DATE.startDate,
+            FIRST_DATE.endDate
+        ) == After
+    );
 }
 
 int main() {
-    const Date FIRST_DATE{
-                   readDate()
-               },
-               SECOND_DATE{
-                   readDate()
-               };
+    const Period FIRST_PERIOD{
+                     readPeriod(
+                         "First Date"
+                     )
+                 }, SECOND_PERIOD{
+                     readPeriod(
+                         "Second Date"
+                     )
+                 };
 
-    cout << dateComparisonText(
-        FIRST_DATE,
-        SECOND_DATE
-    );
+    cout << "Periods are" << (
+        comparePeriod(
+            FIRST_PERIOD,
+            SECOND_PERIOD
+        )
+            ? ""
+            : "n't"
+    ) << " Overlap";
 }

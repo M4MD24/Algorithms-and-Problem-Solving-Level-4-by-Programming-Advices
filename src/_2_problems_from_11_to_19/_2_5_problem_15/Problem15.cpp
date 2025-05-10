@@ -102,6 +102,7 @@ int main() {
     const Date DATE = {
         readDate()
     };
+
     cout << "Is Last Month in Year?" << endl;
     cout << boolalpha << (
         DATE.day == monthDays(

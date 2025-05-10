@@ -4,6 +4,7 @@
 using namespace std;
 
 struct Date {
+    string title;
     short year;
     short month;
     short day;
@@ -40,6 +41,16 @@ bool isNumber(
 bool isPositiveNumber(
     const short& NUMBER
 ) { return NUMBER > 0; }
+
+string readTitle() {
+    cout << "Enter Title:" << endl;
+    string title;
+    getline(
+        cin,
+        title
+    );
+    return title;
+}
 
 short readYear() {
     short year;
@@ -114,14 +125,25 @@ short readDay(
     return day;
 }
 
-Date readDate() {
+Date readDate(
+    const string& INPUT_TYPE
+) {
+    cout << INPUT_TYPE << endl;
+
+    const string TITLE = readTitle();
     const short YEAR = readYear();
     const short MONTH = readMonth();
     const short DAY = readDay(
         YEAR,
         MONTH
     );
+    cin.ignore(
+        numeric_limits<streamsize>::max(),
+        '\n'
+    );
+
     return {
+        TITLE,
         YEAR,
         MONTH,
         DAY
@@ -147,38 +169,18 @@ short compareDates(
     return -1;
 }
 
-string dateComparisonText(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
-) {
-    string result = "First Date is ";
-    switch (
-        compareDates(
-            FIRST_DATE,
-            SECOND_DATE
-        )
-    ) {
-    case 0:
-        result += "Equal to";
-        break;
-    case 1:
-        result += "Bigger Than";
-        break;
-    default:
-        result += "Less Than";
-    }
-    return result + " Second Date";
-}
-
 int main() {
     const Date FIRST_DATE{
-                   readDate()
-               },
-               SECOND_DATE{
-                   readDate()
+                   readDate(
+                       "First Date"
+                   )
+               }, SECOND_DATE{
+                   readDate(
+                       "Second Date"
+                   )
                };
 
-    cout << dateComparisonText(
+    cout << "Compare Result: " << compareDates(
         FIRST_DATE,
         SECOND_DATE
     );
