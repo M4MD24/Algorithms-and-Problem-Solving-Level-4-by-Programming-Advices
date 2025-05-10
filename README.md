@@ -66,3 +66,4 @@
     2. [Problem 57](src/_4_problems_from_56_to_65/_4_2_problem_57)
     3. [Problem 58](src/_4_problems_from_56_to_65/_4_3_problem_58)
     4. [Problem 59](src/_4_problems_from_56_to_65/_4_4_problem_59)
+    5. [Problem 60](src/_4_problems_from_56_to_65/_4_5_problem_60)
