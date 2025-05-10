@@ -150,48 +150,6 @@ Date readDate(
     };
 }
 
-short readDays(
-    const string& INPUT_MESSAGE
-) {
-    short days;
-    do cout << INPUT_MESSAGE << endl;
-    while (
-        !isNumber(
-            days
-        ) || !isPositiveNumber(
-            days
-        )
-    );
-    return days;
-}
-
-void nextDay(
-    Date& date
-) {
-    if (
-        ++date.day > monthDays(
-            date.year,
-            date.month
-        )
-    ) {
-        date.day = 1;
-        if (++date.month > 12) {
-            date.month = 1;
-            ++date.year;
-        }
-    }
-}
-
-void nextDays(
-    short& dayCount,
-    Date& date
-) {
-    while (dayCount--)
-        nextDay(
-            date
-        );
-}
-
 short compareDates(
     const Date& FIRST_DATE,
     const Date& SECOND_DATE
@@ -233,11 +191,6 @@ string dateComparisonText(
     }
     return result + ' ' + SECOND_DATE.title;
 }
-
-void printDate(
-    const Date& DATE,
-    const char& SEPARATOR
-) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 int main() {
     const Date FIRST_DATE{
