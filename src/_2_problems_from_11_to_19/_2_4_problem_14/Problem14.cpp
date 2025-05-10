@@ -144,6 +144,7 @@ int main() {
                SECOND_DATE{
                    readDate()
                };
+
     cout << "First Date is" << (
         areDatesEqual(
             FIRST_DATE,

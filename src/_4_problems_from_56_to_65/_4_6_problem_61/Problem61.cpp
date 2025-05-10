@@ -195,6 +195,79 @@ bool comparePeriod(
     );
 }
 
+void nextDay(
+    Date& date
+) {
+    if (
+        ++date.day > monthDays(
+            date.year,
+            date.month
+        )
+    ) {
+        date.day = 1;
+        if (++date.month > 12) {
+            date.month = 1;
+            ++date.year;
+        }
+    }
+}
+
+short countDaysBetweenDates(
+    Date startDate,
+    const Date& END_DATE
+) {
+    short counter = 0;
+    if (
+        compareDates(
+            startDate,
+            END_DATE
+        ) == Before
+    )
+        while (
+            compareDates(
+                startDate,
+                END_DATE
+            ) == Before
+        ) {
+            counter++;
+            nextDay(
+                startDate
+            );
+        }
+    return counter;
+}
+
+short countOverlapDays(
+    const Period& FIRST_PERIOD,
+    const Period& SECOND_PERIOD
+) {
+    const Date OVERLAP_START = compareDates(
+                                   FIRST_PERIOD.startDate,
+                                   SECOND_PERIOD.startDate
+                               ) == After
+                                   ? FIRST_PERIOD.startDate
+                                   : SECOND_PERIOD.startDate,
+               OVERLAP_END = compareDates(
+                                 FIRST_PERIOD.endDate,
+                                 SECOND_PERIOD.endDate
+                             ) == Before
+                                 ? FIRST_PERIOD.endDate
+                                 : SECOND_PERIOD.endDate;
+
+    if (
+        compareDates(
+            OVERLAP_START,
+            OVERLAP_END
+        ) == After
+    )
+        return 0;
+
+    return countDaysBetweenDates(
+        OVERLAP_START,
+        OVERLAP_END
+    );;
+}
+
 int main() {
     const Period FIRST_PERIOD{
                      readPeriod(
@@ -206,12 +279,8 @@ int main() {
                      )
                  };
 
-    cout << "Periods are" << (
-        comparePeriod(
-            FIRST_PERIOD,
-            SECOND_PERIOD
-        )
-            ? ""
-            : "n't"
-    ) << " Overlap";
+    cout << "Count Overlap Days: " << countOverlapDays(
+        FIRST_PERIOD,
+        SECOND_PERIOD
+    ) << " day(s)";
 }

@@ -179,6 +179,7 @@ int main() {
                        "Second Date"
                    )
                };
+
     cout << "Compare Result: " << compareDates(
         FIRST_DATE,
         SECOND_DATE

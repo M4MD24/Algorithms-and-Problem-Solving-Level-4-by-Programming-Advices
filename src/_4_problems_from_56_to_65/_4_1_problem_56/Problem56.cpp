@@ -202,6 +202,7 @@ int main() {
                        "Second Date"
                    )
                };
+
     cout << dateComparisonText(
         FIRST_DATE,
         SECOND_DATE

@@ -177,6 +177,7 @@ int main() {
                SECOND_DATE{
                    readDate()
                };
+
     cout << dateComparisonText(
         FIRST_DATE,
         SECOND_DATE
