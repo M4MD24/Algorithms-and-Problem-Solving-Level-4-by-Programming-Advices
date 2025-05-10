@@ -68,3 +68,4 @@
     4. [Problem 59](src/_4_problems_from_56_to_65/_4_4_problem_59)
     5. [Problem 60](src/_4_problems_from_56_to_65/_4_5_problem_60)
     6. [Problem 61](src/_4_problems_from_56_to_65/_4_6_problem_61)
+    7. [Problem 62](src/_4_problems_from_56_to_65/_4_7_problem_62)
