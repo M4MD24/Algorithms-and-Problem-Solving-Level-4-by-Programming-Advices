@@ -156,20 +156,42 @@ Period readPeriod() {
     };
 }
 
+bool areDatesEqual(
+    const Date &FIRST_DATE,
+    const Date &SECOND_DATE
+) {
+    return FIRST_DATE.year == SECOND_DATE.year &&
+        FIRST_DATE.month == SECOND_DATE.month &&
+        FIRST_DATE.day == SECOND_DATE.day;
+}
+
+bool isAfter(
+    const Date &FIRST_DATE,
+    const Date &SECOND_DATE
+) {
+    if (FIRST_DATE.year != SECOND_DATE.year)
+        return FIRST_DATE.year > SECOND_DATE.year;
+    if (FIRST_DATE.month != SECOND_DATE.month)
+        return FIRST_DATE.month > SECOND_DATE.month;
+    return FIRST_DATE.day > SECOND_DATE.day;
+}
+
 DateCompare compareDates(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
+    const Date &FIRST_DATE,
+    const Date &SECOND_DATE
 ) {
     if (
-        FIRST_DATE.year == SECOND_DATE.year &&
-        FIRST_DATE.month == SECOND_DATE.month &&
-        FIRST_DATE.day == SECOND_DATE.day
+        areDatesEqual(
+            FIRST_DATE,
+            SECOND_DATE
+        )
     )
         return Equal;
     if (
-        FIRST_DATE.year >= SECOND_DATE.year &&
-        FIRST_DATE.month >= SECOND_DATE.month &&
-        FIRST_DATE.day >= SECOND_DATE.day
+        isAfter(
+            FIRST_DATE,
+            SECOND_DATE
+        )
     )
         return After;
     return Before;

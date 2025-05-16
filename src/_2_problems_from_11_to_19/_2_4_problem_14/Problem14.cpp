@@ -10,7 +10,7 @@ struct Date {
 };
 
 bool isLeapYear(
-    const short& YEAR
+    const short &YEAR
 ) {
     return YEAR % 4 == 0 &&
     (
@@ -20,7 +20,7 @@ bool isLeapYear(
 }
 
 bool isNumber(
-    short& number
+    short &number
 ) {
     cin >> number;
     if (
@@ -38,7 +38,7 @@ bool isNumber(
 }
 
 bool isPositiveNumber(
-    const short& NUMBER
+    const short &NUMBER
 ) { return NUMBER > 0; }
 
 short readYear() {
@@ -69,8 +69,8 @@ short readMonth() {
 }
 
 short monthDays(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     if (MONTH == 2)
         return isLeapYear(
@@ -94,8 +94,8 @@ short monthDays(
 }
 
 short readDay(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     const short MONTH_DAYS = monthDays(
         YEAR,
@@ -128,9 +128,9 @@ Date readDate() {
     };
 }
 
-short areDatesEqual(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
+bool areDatesEqual(
+    const Date &FIRST_DATE,
+    const Date &SECOND_DATE
 ) {
     return FIRST_DATE.year == SECOND_DATE.year &&
         FIRST_DATE.month == SECOND_DATE.month &&
@@ -138,10 +138,10 @@ short areDatesEqual(
 }
 
 int main() {
-    const Date FIRST_DATE{
+    const Date FIRST_DATE {
                    readDate()
                },
-               SECOND_DATE{
+               SECOND_DATE {
                    readDate()
                };
 

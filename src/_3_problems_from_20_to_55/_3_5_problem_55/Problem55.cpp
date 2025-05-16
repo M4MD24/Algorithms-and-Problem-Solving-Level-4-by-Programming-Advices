@@ -9,8 +9,14 @@ struct Date {
     short day;
 };
 
+enum DateCompare {
+    Before = -1,
+    Equal = 0,
+    After = 1
+};
+
 bool isLeapYear(
-    const short& YEAR
+    const short &YEAR
 ) {
     return YEAR % 4 == 0 &&
     (
@@ -20,7 +26,7 @@ bool isLeapYear(
 }
 
 bool isNumber(
-    short& number
+    short &number
 ) {
     cin >> number;
     if (
@@ -38,7 +44,7 @@ bool isNumber(
 }
 
 bool isPositiveNumber(
-    const short& NUMBER
+    const short &NUMBER
 ) { return NUMBER > 0; }
 
 short readYear() {
@@ -69,8 +75,8 @@ short readMonth() {
 }
 
 short monthDays(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     if (MONTH == 2)
         return isLeapYear(
@@ -94,8 +100,8 @@ short monthDays(
 }
 
 short readDay(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     const short MONTH_DAYS = monthDays(
         YEAR,
@@ -129,7 +135,7 @@ Date readDate() {
 }
 
 short readVacationDays(
-    const string& INPUT_MESSAGE
+    const string &INPUT_MESSAGE
 ) {
     short vacationDays;
     do cout << INPUT_MESSAGE << endl;
@@ -144,12 +150,12 @@ short readVacationDays(
 }
 
 void printDate(
-    const Date& DATE,
-    const char& SEPARATOR
+    const Date &DATE,
+    const char &SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 void nextDay(
-    Date& date
+    Date &date
 ) {
     if (
         ++date.day > monthDays(
@@ -166,7 +172,7 @@ void nextDay(
 }
 
 void nextWeek(
-    Date& date
+    Date &date
 ) {
     for (short day = 0; day < 7; ++day)
         nextDay(
@@ -174,29 +180,51 @@ void nextWeek(
         );
 }
 
-short compareDates(
-    const Date& FIRST_DATE,
-    const Date& SECOND_DATE
+bool areDatesEqual(
+    const Date &FIRST_DATE,
+    const Date &SECOND_DATE
+) {
+    return FIRST_DATE.year == SECOND_DATE.year &&
+        FIRST_DATE.month == SECOND_DATE.month &&
+        FIRST_DATE.day == SECOND_DATE.day;
+}
+
+bool isAfter(
+    const Date &FIRST_DATE,
+    const Date &SECOND_DATE
+) {
+    if (FIRST_DATE.year != SECOND_DATE.year)
+        return FIRST_DATE.year > SECOND_DATE.year;
+    if (FIRST_DATE.month != SECOND_DATE.month)
+        return FIRST_DATE.month > SECOND_DATE.month;
+    return FIRST_DATE.day > SECOND_DATE.day;
+}
+
+DateCompare compareDates(
+    const Date &FIRST_DATE,
+    const Date &SECOND_DATE
 ) {
     if (
-        FIRST_DATE.year == SECOND_DATE.year &&
-        FIRST_DATE.month == SECOND_DATE.month &&
-        FIRST_DATE.day == SECOND_DATE.day
+        areDatesEqual(
+            FIRST_DATE,
+            SECOND_DATE
+        )
     )
-        return 0;
+        return Equal;
     if (
-        FIRST_DATE.year >= SECOND_DATE.year &&
-        FIRST_DATE.month >= SECOND_DATE.month &&
-        FIRST_DATE.day >= SECOND_DATE.day
+        isAfter(
+            FIRST_DATE,
+            SECOND_DATE
+        )
     )
-        return 1;
-    return -1;
+        return After;
+    return Before;
 }
 
 short dayOfWeek(
     short year,
     short month,
-    const short& DAY
+    const short &DAY
 ) {
     if (month < 3) {
         month += 12;
@@ -220,12 +248,12 @@ short dayOfWeek(
 }
 
 bool isWeekend(
-    const short& DAY_OF_WEEK
+    const short &DAY_OF_WEEK
 ) { return DAY_OF_WEEK == 6; }
 
 short vacationDays(
-    Date& firstDate,
-    const Date& SECOND_DATE
+    Date &firstDate,
+    const Date &SECOND_DATE
 ) {
     short counter = 0;
     while (
@@ -252,7 +280,7 @@ short vacationDays(
 }
 
 Date dateAfterVacationDays(
-    short& vacationDays,
+    short &vacationDays,
     Date date
 ) {
     while (vacationDays) {
@@ -274,7 +302,7 @@ Date dateAfterVacationDays(
 }
 
 int main() {
-    const Date VACATION_DAY{
+    const Date VACATION_DAY {
         readDate()
     };
     constexpr char SEPARATOR = '-';

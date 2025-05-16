@@ -10,7 +10,7 @@ struct Date {
 };
 
 bool isLeapYear(
-    const short& YEAR
+    const short &YEAR
 ) {
     return YEAR % 4 == 0 &&
     (
@@ -20,7 +20,7 @@ bool isLeapYear(
 }
 
 bool isNumber(
-    short& number
+    short &number
 ) {
     cin >> number;
     if (
@@ -38,11 +38,11 @@ bool isNumber(
 }
 
 bool isPositiveNumber(
-    const short& NUMBER
+    const short &NUMBER
 ) { return NUMBER > 0; }
 
 short readNumber(
-    const string& INPUT_TYPE
+    const string &INPUT_TYPE
 ) {
     short number;
     do cout << "Enter " << INPUT_TYPE << ':' << endl;
@@ -57,8 +57,8 @@ short readNumber(
 }
 
 short monthDays(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     if (MONTH == 2)
         return isLeapYear(
@@ -105,14 +105,14 @@ int main() {
 
     cout << "Is Last Month in Year?" << endl;
     cout << boolalpha << (
-        DATE.day == monthDays(
-            DATE.year,
-            DATE.month
-        )
+        DATE.month == 12
     ) << endl;
 
     cout << "Is Last Day in Month?" << endl;
     cout << boolalpha << (
-        DATE.month == 12
+        DATE.day == monthDays(
+            DATE.year,
+            DATE.month
+        )
     );
 }
