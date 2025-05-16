@@ -195,7 +195,7 @@ vector<short> convertDateTextToDateParts(
     return dateParts;
 }
 
-Date convertDateTextToDateStructure(
+Date convertDatePartsToDateStructure(
     const vector<short>& DATE_PARTS
 ) {
     return {
@@ -233,7 +233,7 @@ int main() {
         SEPARATOR
     );
     const Date DATE = {
-        convertDateTextToDateStructure(
+        convertDatePartsToDateStructure(
             DATE_PARTS
         )
     };
