@@ -169,11 +169,6 @@ void nextWeek(
         );
 }
 
-void printDate(
-    const Date& DATE,
-    const char& SEPARATOR
-) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
-
 void nextWeeks(
     short& weekCount,
     Date& date
@@ -183,6 +178,11 @@ void nextWeeks(
             date
         );
 }
+
+void printDate(
+    const Date& DATE,
+    const char& SEPARATOR
+) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 int main() {
     Date date{

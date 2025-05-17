@@ -154,20 +154,20 @@ void previousDays(
 }
 
 void previousYear(
-    Date& date
+    Date &date
 ) {
     if (
         isLeapYear(
-            date.year
+            date.year--
+        ) && (
+            date.month > 2 ||
+            (
+                date.month == 2 &&
+                date.day == 29
+            )
         )
     )
-        previousDays(
-            366,
-            date
-        );
-    else
-        previousDays(
-            365,
+        previousDay(
             date
         );
 }

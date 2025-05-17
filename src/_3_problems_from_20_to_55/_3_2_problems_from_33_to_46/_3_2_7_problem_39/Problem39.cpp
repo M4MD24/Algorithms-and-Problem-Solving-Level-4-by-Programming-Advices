@@ -10,7 +10,7 @@ struct Date {
 };
 
 bool isLeapYear(
-    const short& YEAR
+    const short &YEAR
 ) {
     return YEAR % 4 == 0 &&
     (
@@ -20,7 +20,7 @@ bool isLeapYear(
 }
 
 bool isNumber(
-    short& number
+    short &number
 ) {
     cin >> number;
     if (
@@ -38,7 +38,7 @@ bool isNumber(
 }
 
 bool isPositiveNumber(
-    const short& NUMBER
+    const short &NUMBER
 ) { return NUMBER > 0; }
 
 short readYear() {
@@ -69,8 +69,8 @@ short readMonth() {
 }
 
 short monthDays(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     if (MONTH == 2)
         return isLeapYear(
@@ -94,8 +94,8 @@ short monthDays(
 }
 
 short readDay(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     const short MONTH_DAYS = monthDays(
         YEAR,
@@ -129,7 +129,7 @@ Date readDate() {
 }
 
 void previousDay(
-    Date& date
+    Date &date
 ) {
     if (--date.day == 0) {
         if (--date.month == 0) {
@@ -145,7 +145,7 @@ void previousDay(
 
 void previousDays(
     short dayCount,
-    Date& date
+    Date &date
 ) {
     while (dayCount--)
         previousDay(
@@ -154,31 +154,31 @@ void previousDays(
 }
 
 void previousYear(
-    Date& date
+    Date &date
 ) {
     if (
         isLeapYear(
-            date.year
+            date.year--
+        ) && (
+            date.month > 2 ||
+            (
+                date.month == 2 &&
+                date.day == 29
+            )
         )
     )
-        previousDays(
-            366,
-            date
-        );
-    else
-        previousDays(
-            365,
+        previousDay(
             date
         );
 }
 
 void printDate(
-    const Date& DATE,
-    const char& SEPARATOR
+    const Date &DATE,
+    const char &SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 int main() {
-    Date date{
+    Date date {
         readDate()
     };
     constexpr char SEPARATOR = '-';
