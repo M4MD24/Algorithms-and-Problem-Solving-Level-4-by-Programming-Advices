@@ -21,7 +21,7 @@ enum DateCompare {
 };
 
 bool isLeapYear(
-    const short& YEAR
+    const short &YEAR
 ) {
     return YEAR % 4 == 0 &&
     (
@@ -31,7 +31,7 @@ bool isLeapYear(
 }
 
 bool isNumber(
-    short& number
+    short &number
 ) {
     cin >> number;
     if (
@@ -49,7 +49,7 @@ bool isNumber(
 }
 
 bool isPositiveNumber(
-    const short& NUMBER
+    const short &NUMBER
 ) { return NUMBER > 0; }
 
 short readYear() {
@@ -80,8 +80,8 @@ short readMonth() {
 }
 
 short monthDays(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     if (MONTH == 2)
         return isLeapYear(
@@ -105,8 +105,8 @@ short monthDays(
 }
 
 short readDay(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     const short MONTH_DAYS = monthDays(
         YEAR,
@@ -126,7 +126,7 @@ short readDay(
 }
 
 Date readDate(
-    const string& INPUT_TYPE
+    const string &INPUT_TYPE
 ) {
     cout << INPUT_TYPE << endl;
     const short YEAR = readYear();
@@ -143,7 +143,7 @@ Date readDate(
 }
 
 Period readPeriod(
-    const string& INPUT_TYPE
+    const string &INPUT_TYPE
 ) {
     cout << "# " << INPUT_TYPE << endl;
 
@@ -201,9 +201,9 @@ DateCompare compareDates(
     return Before;
 }
 
-bool comparePeriod(
-    const Period& FIRST_DATE,
-    const Period& SECOND_DATE
+bool areOverlap(
+    const Period &FIRST_DATE,
+    const Period &SECOND_DATE
 ) {
     return !(
         compareDates(
@@ -218,18 +218,18 @@ bool comparePeriod(
 }
 
 int main() {
-    const Period FIRST_PERIOD{
+    const Period FIRST_PERIOD {
                      readPeriod(
                          "First Date"
                      )
-                 }, SECOND_PERIOD{
+                 }, SECOND_PERIOD {
                      readPeriod(
                          "Second Date"
                      )
                  };
 
     cout << "Periods are" << (
-        comparePeriod(
+        areOverlap(
             FIRST_PERIOD,
             SECOND_PERIOD
         )

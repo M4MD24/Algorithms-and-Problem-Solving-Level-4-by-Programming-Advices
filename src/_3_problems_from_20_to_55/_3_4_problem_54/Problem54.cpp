@@ -16,7 +16,7 @@ enum DateCompare {
 };
 
 bool isLeapYear(
-    const short& YEAR
+    const short &YEAR
 ) {
     return YEAR % 4 == 0 &&
     (
@@ -26,7 +26,7 @@ bool isLeapYear(
 }
 
 bool isNumber(
-    short& number
+    short &number
 ) {
     cin >> number;
     if (
@@ -44,7 +44,7 @@ bool isNumber(
 }
 
 bool isPositiveNumber(
-    const short& NUMBER
+    const short &NUMBER
 ) { return NUMBER > 0; }
 
 short readYear() {
@@ -75,8 +75,8 @@ short readMonth() {
 }
 
 short monthDays(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     if (MONTH == 2)
         return isLeapYear(
@@ -100,8 +100,8 @@ short monthDays(
 }
 
 short readDay(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     const short MONTH_DAYS = monthDays(
         YEAR,
@@ -135,12 +135,12 @@ Date readDate() {
 }
 
 void printDate(
-    const Date& DATE,
-    const char& SEPARATOR
+    const Date &DATE,
+    const char &SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 void nextDay(
-    Date& date
+    Date &date
 ) {
     if (
         ++date.day > monthDays(
@@ -157,7 +157,7 @@ void nextDay(
 }
 
 void nextWeek(
-    Date& date
+    Date &date
 ) {
     for (short day = 0; day < 7; ++day)
         nextDay(
@@ -209,7 +209,7 @@ DateCompare compareDates(
 short dayOfWeek(
     short year,
     short month,
-    const short& DAY
+    const short &DAY
 ) {
     if (month < 3) {
         month += 12;
@@ -233,12 +233,12 @@ short dayOfWeek(
 }
 
 bool isWeekend(
-    const short& DAY_OF_WEEK
+    const short &DAY_OF_WEEK
 ) { return DAY_OF_WEEK == 6; }
 
 short vacationDays(
-    Date& firstDate,
-    const Date& SECOND_DATE
+    Date &firstDate,
+    const Date &SECOND_DATE
 ) {
     short counter = 0;
     while (
@@ -265,10 +265,10 @@ short vacationDays(
 }
 
 int main() {
-    Date firstDate{
+    Date firstDate {
         readDate()
     };
-    const Date SECOND_DATE{
+    const Date SECOND_DATE {
         readDate()
     };
     constexpr char SEPARATOR = '-';

@@ -132,6 +132,19 @@ bool dateIsValid(
         );
 }
 
+string readDateText() {
+    cout << "Enter Date Text: " << endl;
+    string dateText;
+    getline(
+        cin,
+        dateText
+    );
+    trim(
+        dateText
+    );
+    return dateText;
+}
+
 void splitText(
     string text,
     vector<short>& parts,
@@ -167,19 +180,6 @@ void splitText(
             )
         )
     );
-}
-
-string readDateText() {
-    cout << "Enter Date Text: " << endl;
-    string dateText;
-    getline(
-        cin,
-        dateText
-    );
-    trim(
-        dateText
-    );
-    return dateText;
 }
 
 vector<short> convertDateTextToDateParts(

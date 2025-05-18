@@ -9,7 +9,7 @@ struct Date {
 };
 
 bool isLeapYear(
-    const short& YEAR
+    const short &YEAR
 ) {
     return YEAR % 4 == 0 &&
     (
@@ -19,8 +19,8 @@ bool isLeapYear(
 }
 
 short monthDays(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     if (MONTH == 2)
         return isLeapYear(
@@ -47,7 +47,7 @@ Date getSystemDate() {
     const time_t TIME = time(
         nullptr
     );
-    const tm* TIME_NOW = localtime(
+    const tm *TIME_NOW = localtime(
         &TIME
     );
     return {
@@ -58,12 +58,12 @@ Date getSystemDate() {
 }
 
 void printDate(
-    const Date& DATE,
-    const char& SEPARATOR
+    const Date &DATE,
+    const char &SEPARATOR
 ) { cout << "Date: " << DATE.day << SEPARATOR << DATE.month << SEPARATOR << DATE.year; }
 
 short daysUntilEndOfYear(
-    const Date& DATE
+    const Date &DATE
 ) {
     const short REMAINDER = isLeapYear(
                                 DATE.year
@@ -80,11 +80,11 @@ short daysUntilEndOfYear(
             )
         );
 
-    return REMAINDER - daysBeforeTargetDate;
+    return static_cast<short>(REMAINDER - daysBeforeTargetDate);
 }
 
 int main() {
-    const Date SYSTEM_DATE{
+    const Date SYSTEM_DATE {
         getSystemDate()
     };
     constexpr char SEPARATOR = '-';

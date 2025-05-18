@@ -208,7 +208,7 @@ bool isDateInPeriod(
         ) == Before ||
         compareDates(
             DATE,
-            PERIOD.startDate
+            PERIOD.endDate
         ) == After
     );
 }

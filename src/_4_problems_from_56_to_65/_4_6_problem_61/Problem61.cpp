@@ -287,7 +287,7 @@ short countOverlapDays(
     return countDaysBetweenDates(
         OVERLAP_START,
         OVERLAP_END
-    );;
+    );
 }
 
 int main() {

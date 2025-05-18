@@ -13,7 +13,7 @@ struct Date {
 };
 
 bool isLeapYear(
-    const short& YEAR
+    const short &YEAR
 ) {
     return YEAR % 4 == 0 &&
     (
@@ -23,7 +23,7 @@ bool isLeapYear(
 }
 
 bool isNumber(
-    short& number
+    short &number
 ) {
     cin >> number;
     if (
@@ -41,7 +41,7 @@ bool isNumber(
 }
 
 bool isPositiveNumber(
-    const short& NUMBER
+    const short &NUMBER
 ) { return NUMBER > 0; }
 
 short readYear() {
@@ -72,8 +72,8 @@ short readMonth() {
 }
 
 short monthDays(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     if (MONTH == 2)
         return isLeapYear(
@@ -97,8 +97,8 @@ short monthDays(
 }
 
 short readDay(
-    const short& YEAR,
-    const short& MONTH
+    const short &YEAR,
+    const short &MONTH
 ) {
     const short MONTH_DAYS = monthDays(
         YEAR,
@@ -133,8 +133,8 @@ Date readDate() {
 
 void splitText(
     string text,
-    vector<short>& parts,
-    const string& DELIMITER
+    vector<short> &parts,
+    const string &DELIMITER
 ) {
     size_t position;
     while (
@@ -182,8 +182,8 @@ string readDateText() {
 }
 
 vector<short> convertDateTextToDateParts(
-    const string& DATE_TEXT,
-    const string& DELIMITER
+    const string &DATE_TEXT,
+    const string &DELIMITER
 ) {
     vector<short> dateParts;
     splitText(
@@ -195,7 +195,7 @@ vector<short> convertDateTextToDateParts(
 }
 
 Date convertDatePartsToDateStructure(
-    const vector<short>& DATE_PARTS
+    const vector<short> &DATE_PARTS
 ) {
     return {
         DATE_PARTS[0],
@@ -205,13 +205,13 @@ Date convertDatePartsToDateStructure(
 }
 
 void printDateStructure(
-    const Date& DATE,
-    const string& SEPARATOR
+    const Date &DATE,
+    const string &SEPARATOR
 ) { cout << "Date Structure: " << DATE.year << SEPARATOR << DATE.month << SEPARATOR << DATE.day << endl; }
 
 string convertDateStructureToDateText(
-    const Date& DATE,
-    const string& SEPARATOR
+    const Date &DATE,
+    const string &SEPARATOR
 ) {
     return to_string(
             DATE.year
@@ -225,9 +225,9 @@ string convertDateStructureToDateText(
 }
 
 void format_yyyy(
-    const short& YEAR,
-    string& result,
-    size_t& position
+    const short &YEAR,
+    string &result,
+    size_t &position
 ) {
     while (
         (
@@ -246,9 +246,9 @@ void format_yyyy(
 }
 
 void format_yy(
-    const short& YEAR,
-    string& result,
-    size_t& position
+    const short &YEAR,
+    string &result,
+    size_t &position
 ) {
     while (
         (
@@ -274,9 +274,9 @@ void format_yy(
 }
 
 void format_mm(
-    const short& MONTH,
-    string& result,
-    size_t& position
+    const short &MONTH,
+    string &result,
+    size_t &position
 ) {
     while (
         (
@@ -302,9 +302,9 @@ void format_mm(
 }
 
 void format_m(
-    const short& MONTH,
-    string& result,
-    size_t& position
+    const short &MONTH,
+    string &result,
+    size_t &position
 ) {
     while (
         (
@@ -323,9 +323,9 @@ void format_m(
 }
 
 void format_dd(
-    const short& DAY,
-    string& result,
-    size_t& position
+    const short &DAY,
+    string &result,
+    size_t &position
 ) {
     while (
         (
@@ -351,9 +351,9 @@ void format_dd(
 }
 
 void format_d(
-    const short& DAY,
-    string& result,
-    size_t& position
+    const short &DAY,
+    string &result,
+    size_t &position
 ) {
     while (
         (
@@ -372,9 +372,9 @@ void format_d(
 }
 
 void formatYear(
-    const short& DATE,
-    string& result,
-    size_t& position
+    const short &DATE,
+    string &result,
+    size_t &position
 ) {
     format_yyyy(
         DATE,
@@ -390,9 +390,9 @@ void formatYear(
 }
 
 void formatMonth(
-    const short& MONTH,
-    string& result,
-    size_t& position
+    const short &MONTH,
+    string &result,
+    size_t &position
 ) {
     format_mm(
         MONTH,
@@ -408,9 +408,9 @@ void formatMonth(
 }
 
 void formatDay(
-    const short& DAY,
-    string& result,
-    size_t& position
+    const short &DAY,
+    string &result,
+    size_t &position
 ) {
     format_dd(
         DAY,
@@ -426,8 +426,8 @@ void formatDay(
 }
 
 string formatDate(
-    const Date& DATE,
-    const string& FORMAT
+    const Date &DATE,
+    const string &FORMAT
 ) {
     string result = FORMAT;
 
@@ -455,11 +455,11 @@ string formatDate(
 }
 
 void printDateText(
-    const string& DATE_TEXT
+    const string &DATE_TEXT
 ) { cout << "Date: " << DATE_TEXT << endl; }
 
 int main() {
-    const Date DATE{
+    const Date DATE {
         readDate()
     };
 
