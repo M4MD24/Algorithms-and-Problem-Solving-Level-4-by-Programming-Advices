@@ -113,7 +113,7 @@ namespace Read {
         } while (
             !isPositiveNumber(
                 amount
-            ) && !areYourSure(
+            ) && !areYouSure(
                 "Are your sure?"
             )
         );
@@ -147,7 +147,7 @@ namespace Read {
     inline void readCreateNewClientAccountPermission(
         AdminRole& adminRole
     ) {
-        adminRole.createNewClientAccount = areYourSure(
+        adminRole.createNewClientAccount = areYouSure(
             "Can Create New Client Account?"
         );
     }
@@ -155,7 +155,7 @@ namespace Read {
     inline void readShowClientAccountListPermission(
         AdminRole& adminRole
     ) {
-        adminRole.showClientAccountList = areYourSure(
+        adminRole.showClientAccountList = areYouSure(
             "Can Show Client Account List?"
         );
     }
@@ -163,7 +163,7 @@ namespace Read {
     inline void readUpdateClientAccountPermission(
         AdminRole& adminRole
     ) {
-        adminRole.updateClientAccount = areYourSure(
+        adminRole.updateClientAccount = areYouSure(
             "Can Update Client Account?"
         );
     }
@@ -171,7 +171,7 @@ namespace Read {
     inline void readFindClientAccountPermission(
         AdminRole& adminRole
     ) {
-        adminRole.findClientAccount = areYourSure(
+        adminRole.findClientAccount = areYouSure(
             "Can Find Client Account?"
         );
     }
@@ -179,7 +179,7 @@ namespace Read {
     inline void readDeleteClientAccountPermission(
         AdminRole& adminRole
     ) {
-        adminRole.deleteClientAccount = areYourSure(
+        adminRole.deleteClientAccount = areYouSure(
             "Can Delete Client Account?"
         );
     }
@@ -187,7 +187,7 @@ namespace Read {
     inline void readTransactionsPermission(
         AdminRole& adminRole
     ) {
-        adminRole.transactions = areYourSure(
+        adminRole.transactions = areYouSure(
             "Can Transactions?"
         );
     }

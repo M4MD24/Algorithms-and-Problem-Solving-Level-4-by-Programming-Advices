@@ -51,7 +51,7 @@ namespace Read {
         const long double& NUMBER
     ) { return NUMBER > 0; }
 
-    inline bool areYourSure(
+    inline bool areYouSure(
         const string& INPUT_MESSAGE
     ) {
         string accepting;
